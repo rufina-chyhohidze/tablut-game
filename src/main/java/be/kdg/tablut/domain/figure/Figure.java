@@ -7,6 +7,26 @@ public class Figure {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        switch (type) {
+            case KING -> {
+                return "KING";
+            }
+            case MERCENARY -> {
+                return "MERCENARY";
+            }
+
+            case GUARD -> {
+                return "GUARD";
+            }
+
+            default -> {
+                return "";
+            }
+        }
+    }
+
     public FigureType getType() {
         return type;
     }

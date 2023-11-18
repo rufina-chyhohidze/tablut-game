@@ -3,18 +3,15 @@ package be.kdg.tablut.domain.grid;
 import be.kdg.tablut.domain.figure.Figure;
 
 public class Grid {
-    private Figure[][] slots;
+    private Figure[][] grid;
+
+    public Figure[][] getGrid() {
+        return grid;
+    }
 
     public Grid(Figure[][] slots) {
-        this.slots = slots;
+        this.grid = slots;
     }
 
-    public boolean isSlotTaken(int row, int col) {
-        return slots[row][col] != null;
-    }
-
-    public boolean isSlotFree(int row, int col) {
-        return slots[row][col] == null;
-    }
 
 }
