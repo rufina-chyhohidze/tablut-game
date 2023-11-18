@@ -1,34 +1,15 @@
 package be.kdg.tablut.domain.figure;
 
-public class Figure {
-    private FigureType type;
+import be.kdg.tablut.domain.grid.Grid;
+import be.kdg.tablut.domain.grid.GridPosition;
 
-    public Figure(FigureType type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        switch (type) {
-            case KING -> {
-                return "KING";
-            }
-            case MERCENARY -> {
-                return "MERCENARY";
-            }
-
-            case GUARD -> {
-                return "GUARD";
-            }
-
-            default -> {
-                return "";
-            }
-        }
-    }
+public  abstract class Figure {
+    protected FigureType type;
 
     public FigureType getType() {
         return type;
     }
+
+    abstract GridPosition[] getPossibleMoves(GridPosition currentPosition);
 
 }
