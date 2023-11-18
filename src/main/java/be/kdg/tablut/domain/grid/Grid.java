@@ -13,5 +13,8 @@ public class Grid {
         return slots[row][col] != null;
     }
 
+    public boolean isSlotFree(int row, int col) {
+        return slots[row][col] == null;
+    }
 
 }
