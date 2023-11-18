@@ -3,6 +3,7 @@ package be.kdg;
 import be.kdg.tablut.domain.figure.Figure;
 import be.kdg.tablut.domain.grid.Grid;
 import be.kdg.tablut.domain.grid.GridFactory;
+import be.kdg.tablut.domain.grid.GridPosition;
 
 public class Main {
     public static void main(String[] args) {
