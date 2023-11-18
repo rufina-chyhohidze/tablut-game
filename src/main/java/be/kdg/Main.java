@@ -1,5 +1,6 @@
 package be.kdg;
 
+import be.kdg.tablut.domain.board.GameBoard;
 import be.kdg.tablut.domain.figure.Figure;
 import be.kdg.tablut.domain.grid.Grid;
 import be.kdg.tablut.domain.grid.GridFactory;
@@ -7,9 +8,11 @@ import be.kdg.tablut.domain.grid.GridPosition;
 
 public class Main {
     public static void main(String[] args) {
-        Grid grid = GridFactory.CreateDefaultGrid();
 
-        for (Figure[] row : grid.getSlots())
+        GameBoard gameBoard = new GameBoard();
+
+        // TODO: move all printing to presentation layer
+        for (Figure[] row : gameBoard.getGrid().getSlots())
         {
             for (Figure figure : row)
             {
