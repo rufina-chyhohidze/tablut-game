@@ -16,7 +16,7 @@ public class Main {
             for (Figure figure : row)
             {
                 if (figure == null) {
-                    System.out.printf("%10s |", 'X');
+                    System.out.printf("%10s |", ' ');
                     continue;
                 }
                 System.out.printf("%10s |", figure);
