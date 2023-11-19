@@ -9,11 +9,11 @@ public class Guard extends Figure{
 
     @Override
     public String toString() {
-        return "Guard";
+        return "G";
     }
 
     @Override
-    GridPosition[] getPossibleMoves(GridPosition currentPosition) {
+    public GridPosition[] getPossibleMoves(GridPosition currentPosition) {
         // TODO:
         return new GridPosition[0];
     }

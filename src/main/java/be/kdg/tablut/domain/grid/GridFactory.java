@@ -1,5 +1,6 @@
 package be.kdg.tablut.domain.grid;
 
+import be.kdg.tablut.domain.Constants;
 import be.kdg.tablut.domain.figure.Figure;
 import be.kdg.tablut.domain.figure.Guard;
 import be.kdg.tablut.domain.figure.King;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class GridFactory {
     public static Grid CreateDefaultGrid() {
 
-        Figure[][] slots = new Figure[9][9];
+        Figure[][] slots = new Figure[Constants.gridSize][Constants.gridSize];
 
         Map<GridPosition, Figure> slotsToFill = new HashMap<GridPosition, Figure>();
 

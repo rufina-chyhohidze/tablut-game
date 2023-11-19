@@ -10,6 +10,6 @@ public  abstract class Figure {
         return type;
     }
 
-    abstract GridPosition[] getPossibleMoves(GridPosition currentPosition);
+    abstract public GridPosition[] getPossibleMoves(GridPosition currentPosition);
 
 }

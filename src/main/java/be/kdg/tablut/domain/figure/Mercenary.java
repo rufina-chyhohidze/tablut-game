@@ -10,11 +10,11 @@ public class Mercenary extends Figure {
 
     @Override
     public String toString() {
-        return "MERCENARY";
+        return "M";
     }
 
     @Override
-    GridPosition[] getPossibleMoves(GridPosition currentPosition) {
+    public GridPosition[] getPossibleMoves(GridPosition currentPosition) {
         // TODO:
         return new GridPosition[0];
     }
