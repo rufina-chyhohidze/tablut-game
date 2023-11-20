@@ -14,12 +14,12 @@ values ('Guy',550, 2,2,50.55,2,0);
 insert into Leaderboard (player_name, total_score, total_wins_of_player,total_games_of_player, total_win_rate, wins_as_w, wins_as_b)
 values ('Man',1100, 4,4,100.00,2,2);
 insert into Leaderboard (player_name, total_score, total_wins_of_player,total_games_of_player, total_win_rate, wins_as_w, wins_as_b)
-values ('Gamer Girl',0, 0,4,100.00,2,2);
+values ('Noob',0, 0,4,100.00,2,2);
 
 
 UPDATE Leaderboard
 SET total_win_rate = 0, wins_as_b = 0, wins_as_w = 0
-WHERE player_name = 'Gamer Girl';
+WHERE player_name = 'Noob';
 
 
 select *
