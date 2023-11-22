@@ -1,8 +1,8 @@
-package be.kdg.tablut.domain.grid;
+package be.kdg.tablut.domain.board;
 
 import be.kdg.tablut.domain.Constants;
 
-public class GridPosition {
+public class BoardPosition {
     public int row;
     public int col;
     private final boolean isCenter;
@@ -17,11 +17,11 @@ public class GridPosition {
             return false;
         }
 
-        final GridPosition toCompare = (GridPosition) obj;
+        final BoardPosition toCompare = (BoardPosition) obj;
         return (this.row == toCompare.row && this.col == toCompare.col);
     }
 
-    public GridPosition(int row, int col) throws IllegalArgumentException
+    public BoardPosition(int row, int col) throws IllegalArgumentException
     {
         if ( (row < 0 || row >= Constants.gridSize) || (col < 0 || col >= Constants.gridSize))
         {

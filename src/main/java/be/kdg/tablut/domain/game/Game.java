@@ -1,23 +1,22 @@
-package be.kdg.tablut.domain.board;
+package be.kdg.tablut.domain.game;
 
-import be.kdg.tablut.domain.grid.Grid;
-import be.kdg.tablut.domain.grid.GridFactory;
-import be.kdg.tablut.domain.grid.GridPosition;
+import be.kdg.tablut.domain.board.Board;
+import be.kdg.tablut.domain.board.BoardFactory;
+import be.kdg.tablut.domain.board.BoardPosition;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-public class GameBoard {
+public class Game {
 
-    public GameBoard() {
-        this.grid = GridFactory.CreateDefaultGrid();
+    public Game() {
+        this.board = BoardFactory.CreateDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
         this.winner = null;
     }
 
-    private final Grid grid;
-    public Grid getGrid() {
-        return grid;
+    private final Board board;
+    public Board getBoard() {
+        return board;
     }
 
     private MoveTurn moveTurn;
@@ -36,23 +35,27 @@ public class GameBoard {
         this.winner = winner;
     }
 
+    public void makeMove(BoardPosition moveTo)  {
+
+    }
+
     public boolean isGameOver() {
         return (isBlackWin() || isWhiteWin());
     }
 
     private boolean isWhiteWin() {
-        GridPosition kingPosition = grid.GetKingPosition();
-        ArrayList<GridPosition> borderPositions = Grid.GetBorderPositions();
+        BoardPosition kingPosition = board.GetKingPosition();
+        ArrayList<BoardPosition> borderPositions = Board.GetBorderPositions();
         return borderPositions.contains(kingPosition);
     }
 
     private boolean isBlackWin() {
-        GridPosition kingPosition = grid.GetKingPosition();
+        BoardPosition kingPosition = board.GetKingPosition();
 
-        ArrayList<GridPosition> positionNeighbors = Grid.getPositionNeighbors(kingPosition);
+        ArrayList<BoardPosition> positionNeighbors = Board.getPositionNeighbors(kingPosition);
 
-        for (GridPosition position: positionNeighbors) {
-            if (!grid.isSlotTaken(position) && !position.isThrone()){
+        for (BoardPosition position: positionNeighbors) {
+            if (!board.isSlotTaken(position) && !position.isThrone()){
                 return false;
             }
         }

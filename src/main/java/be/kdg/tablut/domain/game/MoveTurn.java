@@ -1,4 +1,4 @@
-package be.kdg.tablut.domain.board;
+package be.kdg.tablut.domain.game;
 
 public enum MoveTurn {
     WHITE,
