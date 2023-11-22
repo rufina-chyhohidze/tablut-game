@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GridFactory {
+
     public static Grid CreateDefaultGrid() {
 
         Figure[][] slots = new Figure[Constants.gridSize][Constants.gridSize];

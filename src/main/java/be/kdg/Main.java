@@ -23,6 +23,7 @@ public class Main {
             }
             System.out.print("\n");
         }
+
         System.out.println("-".repeat(108));
     }
 }
