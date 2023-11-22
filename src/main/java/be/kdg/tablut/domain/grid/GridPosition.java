@@ -1,5 +1,7 @@
 package be.kdg.tablut.domain.grid;
 
+import be.kdg.tablut.domain.Constants;
+
 public class GridPosition {
     public int row;
     public int col;
@@ -21,13 +23,13 @@ public class GridPosition {
 
     public GridPosition(int row, int col) throws IllegalArgumentException
     {
-        if ( (row < 0 || row >= 9) || (col < 0 || col >= 9))
+        if ( (row < 0 || row >= Constants.gridSize) || (col < 0 || col >= Constants.gridSize))
         {
             throw new IllegalArgumentException("invalid grid position");
         }
         this.row = row;
         this.col = col;
-        this.isCenter = (this.row == 4 && this.col == 4);
+        this.isCenter = (this.row == Constants.gridSize / 2 && this.col == Constants.gridSize / 2);
     }
 
 

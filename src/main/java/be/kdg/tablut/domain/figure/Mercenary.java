@@ -12,10 +12,4 @@ public class Mercenary extends Figure {
     public String toString() {
         return "M";
     }
-
-    @Override
-    public GridPosition[] getPossibleMoves(GridPosition currentPosition) {
-        // TODO:
-        return new GridPosition[0];
-    }
 }

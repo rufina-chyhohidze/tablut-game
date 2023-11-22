@@ -5,7 +5,6 @@ import be.kdg.tablut.domain.figure.Figure;
 import be.kdg.tablut.domain.figure.FigureType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Grid {
     private final Figure[][] slots;
@@ -22,20 +21,6 @@ public class Grid {
         return slots[position.row][position.col] != null;
     }
 
-    public void moveFigure(GridPosition currentPosition, GridPosition targetPosition) throws IllegalArgumentException {
-
-        // TODO: check if targetPosition in Figure.getPossibleMoves() and not taken
-
-        if (!isSlotTaken(currentPosition) || isSlotTaken(targetPosition)) {
-            throw new IllegalArgumentException("invalid move data");
-        }
-
-        Figure figureToMove = slots[currentPosition.row][currentPosition.col];
-        slots[currentPosition.row][currentPosition.col] = null;
-        slots[targetPosition.row][targetPosition.col] = figureToMove;
-
-    }
-
     public GridPosition GetKingPosition() {
         for (int row = 0; row < Constants.gridSize; row++) {
             for (int col = 0; col < Constants.gridSize; col++) {
@@ -48,8 +33,33 @@ public class Grid {
         return null;
     }
 
+    public static ArrayList<GridPosition> getPositionNeighbors(GridPosition currentPosition) {
+        ArrayList<GridPosition> neighbors = new ArrayList<>();
 
-    public ArrayList<GridPosition> GetBorderPositions() {
+        // Left
+        if (currentPosition.col != 0) {
+            neighbors.add(new GridPosition(currentPosition.row, currentPosition.col - 1));
+        }
+
+        // Right
+        if (currentPosition.col != Constants.gridSize - 1) {
+            neighbors.add(new GridPosition(currentPosition.row, currentPosition.col + 1));
+        }
+
+        // Top
+        if (currentPosition.row != 0) {
+            neighbors.add(new GridPosition(currentPosition.row -1, currentPosition.col));
+        }
+
+        // Bottom
+        if (currentPosition.row != Constants.gridSize - 1) {
+            neighbors.add(new GridPosition(currentPosition.row +1, currentPosition.col));
+        }
+
+        return neighbors;
+    }
+
+    public static ArrayList<GridPosition> GetBorderPositions() {
         ArrayList<GridPosition> borderPositions = new ArrayList<>();
 
         for (int col = 0; col < Constants.gridSize; col++) {
@@ -66,8 +76,56 @@ public class Grid {
         return borderPositions;
     }
 
-    public void removeFigure(GridPosition position) {
+    public void moveFigure(GridPosition currentPosition, GridPosition targetPosition) throws IllegalArgumentException {
+
+        Figure figureToMove = slots[currentPosition.row][currentPosition.col];
+        ArrayList<GridPosition> possibleMoves = figureToMove.getPossibleMoves(currentPosition);
+
+        if (!possibleMoves.contains(targetPosition)) {
+            throw new IllegalArgumentException("invalid move data");
+        }
+
+
+        if (!isSlotTaken(currentPosition) || isSlotTaken(targetPosition) || targetPosition.isThrone()) {
+            throw new IllegalArgumentException("invalid move data");
+        }
+
+        slots[currentPosition.row][currentPosition.col] = null;
+        slots[targetPosition.row][targetPosition.col] = figureToMove;
+
+    }
+
+    private void removeFigure(GridPosition position) {
         slots[position.row][position.col] = null;
     }
 
+
+    private ArrayList<GridPosition> getPositionsBetweenPositions(
+            GridPosition currentPosition,
+            GridPosition targetPosition
+    ) {
+        ArrayList<GridPosition> positionsBetween = new ArrayList<>();
+
+        if (
+                (currentPosition.row != targetPosition.row) &&
+                (currentPosition.col != targetPosition.col)
+        ) {
+            return positionsBetween;
+        }
+
+        if (currentPosition.row == targetPosition.row) {
+            for (
+                    int col = Math.min(currentPosition.col, targetPosition.col);
+                    col < Math.max(currentPosition.col, targetPosition.col);
+                    col++
+            ){
+                positionsBetween.add(new GridPosition(currentPosition.row, col));
+            }
+            return positionsBetween;
+        }
+
+
+
+        return positionsBetween;
+    }
 }
