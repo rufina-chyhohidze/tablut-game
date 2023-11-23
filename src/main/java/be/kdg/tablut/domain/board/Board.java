@@ -95,6 +95,7 @@ public class Board {
         slots[currentPosition.row][currentPosition.col] = null;
         slots[targetPosition.row][targetPosition.col] = figureToMove;
 
+        updateBoardCheckAttacks();
     }
 
     private void removeFigure(BoardPosition position) {
@@ -139,10 +140,17 @@ public class Board {
         return positionsBetween;
     }
 
-    private void checkAttacksAfterMove() {
-        for (int row = 1; row < Constants.gridSize -1; row++) {
+    private void updateBoardCheckAttacks() {
+        for (int row = 0; row < Constants.gridSize; row++) {
             for (int col = 0; col < Constants.gridSize; col++) {
+                BoardPosition currentPosition = new BoardPosition(row, col);
 
+                boolean  isHorizontalAttacked  = checkHorizontalAttack(currentPosition);
+                boolean isVerticallyAttacked = checkVerticalAttack(currentPosition);
+
+                if (isHorizontalAttacked || isVerticallyAttacked) {
+                    removeFigure(currentPosition);
+                }
             }
         }
     }
@@ -177,5 +185,40 @@ public class Board {
         }
 
         return neighbors;
+    }
+
+    private boolean checkHorizontalAttack(BoardPosition position) {
+        ArrayList<BoardPosition> horizontalNeighbors = getHorizontalNeighbors(position);
+        if (horizontalNeighbors.size() != 2) {
+            return false;
+        }
+
+        Figure neighbor1 = slots[horizontalNeighbors.get(0).row][horizontalNeighbors.get(0).col];
+        Figure figureToCheckAttack = slots[position.row][position.col];
+        Figure neighbor2 = slots[horizontalNeighbors.get(1).row][horizontalNeighbors.get(1).col];
+
+        return (
+                (neighbor1.isWhite == neighbor2.isWhite) &&
+                (neighbor1.canAttack && neighbor2.canAttack) &&
+                (neighbor1.isWhite != figureToCheckAttack.isWhite)
+        );
+
+    }
+
+    private boolean checkVerticalAttack(BoardPosition position) {
+        ArrayList<BoardPosition> verticalNeighbors = getVerticalNeighbors(position);
+        if (verticalNeighbors.size() != 2) {
+            return false;
+        }
+
+        Figure neighbor1 = slots[verticalNeighbors.get(0).row][verticalNeighbors.get(0).col];
+        Figure figureToCheckAttack = slots[position.row][position.col];
+        Figure neighbor2 = slots[verticalNeighbors.get(1).row][verticalNeighbors.get(1).col];
+
+        return (
+                (neighbor1.isWhite == neighbor2.isWhite) &&
+                (neighbor1.canAttack && neighbor2.canAttack) &&
+                (neighbor1.isWhite != figureToCheckAttack.isWhite)
+        );
     }
 }
