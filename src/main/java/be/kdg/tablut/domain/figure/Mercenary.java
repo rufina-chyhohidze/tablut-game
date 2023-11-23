@@ -4,6 +4,7 @@ public class Mercenary extends Figure {
 
     public Mercenary() {
         type = FigureType.MERCENARY;
+        isWhite = false;
     }
 
     @Override

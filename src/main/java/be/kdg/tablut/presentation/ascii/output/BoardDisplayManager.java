@@ -1,4 +1,4 @@
-package be.kdg.tablut.presentation.ascii;
+package be.kdg.tablut.presentation.ascii.output;
 
 import be.kdg.tablut.domain.Constants;
 import be.kdg.tablut.domain.board.Board;
