@@ -34,29 +34,15 @@ public class Board {
     }
 
     public static ArrayList<BoardPosition> getPositionNeighbors(BoardPosition currentPosition) {
-        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+        ArrayList<BoardPosition> allNeighbors = new ArrayList<BoardPosition>();
 
-        // Left
-        if (currentPosition.col != 0) {
-            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col - 1));
-        }
+        ArrayList<BoardPosition> horizontalNeighbors = getHorizontalNeighbors(currentPosition);
+        ArrayList<BoardPosition> verticalNeighbors = getVerticalNeighbors(currentPosition);
 
-        // Right
-        if (currentPosition.col != Constants.gridSize - 1) {
-            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col + 1));
-        }
+        allNeighbors.addAll(horizontalNeighbors);
+        allNeighbors.addAll(verticalNeighbors);
 
-        // Top
-        if (currentPosition.row != 0) {
-            neighbors.add(new BoardPosition(currentPosition.row -1, currentPosition.col));
-        }
-
-        // Bottom
-        if (currentPosition.row != Constants.gridSize - 1) {
-            neighbors.add(new BoardPosition(currentPosition.row +1, currentPosition.col));
-        }
-
-        return neighbors;
+        return allNeighbors;
     }
 
     public static ArrayList<BoardPosition> GetBorderPositions() {
@@ -115,7 +101,6 @@ public class Board {
         slots[position.row][position.col] = null;
     }
 
-
     private ArrayList<BoardPosition> getPositionsBetweenPositions(
             BoardPosition currentPosition,
             BoardPosition targetPosition
@@ -152,5 +137,45 @@ public class Board {
 
 
         return positionsBetween;
+    }
+
+    private void checkAttacksAfterMove() {
+        for (int row = 1; row < Constants.gridSize -1; row++) {
+            for (int col = 0; col < Constants.gridSize; col++) {
+
+            }
+        }
+    }
+
+    private static ArrayList<BoardPosition> getHorizontalNeighbors(BoardPosition currentPosition) {
+        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+
+        // Left
+        if (currentPosition.col != 0) {
+            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col - 1));
+        }
+
+        // Right
+        if (currentPosition.col != Constants.gridSize - 1) {
+            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col + 1));
+        }
+
+        return neighbors;
+    }
+
+    private static ArrayList<BoardPosition> getVerticalNeighbors(BoardPosition currentPosition) {
+        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+
+        // Top
+        if (currentPosition.row != 0) {
+            neighbors.add(new BoardPosition(currentPosition.row -1, currentPosition.col));
+        }
+
+        // Bottom
+        if (currentPosition.row != Constants.gridSize - 1) {
+            neighbors.add(new BoardPosition(currentPosition.row +1, currentPosition.col));
+        }
+
+        return neighbors;
     }
 }

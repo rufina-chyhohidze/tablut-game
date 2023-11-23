@@ -12,22 +12,21 @@ import java.util.Date;
 
 public class Game {
 
+    private final Board board;
+    private MoveTurn moveTurn;
+    private final LocalDateTime startedAt;
+    private LocalDateTime finishedAt;
+
     public Game() {
         this.board = BoardFactory.CreateDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
-        this.winner = null;
         this.startedAt = LocalDateTime.now();
     }
 
-    private final Board board;
     public Board getBoard() {
         return board;
     }
 
-    private final LocalDateTime startedAt;
-    private LocalDateTime finishedAt;
-
-    private MoveTurn moveTurn;
     public MoveTurn getMoveTurn() {
         return moveTurn;
     }
@@ -35,12 +34,8 @@ public class Game {
         this.moveTurn = moveTurn;
     }
 
-    private MoveTurn winner;
-    public MoveTurn getWinner() {
-        return winner;
-    }
-    private void setWinner(MoveTurn winner) {
-        this.winner = winner;
+    public boolean isGameOver() {
+        return (isBlackWin() || isWhiteWin());
     }
 
     public void makeMove(BoardPosition currentPosition, BoardPosition moveTo) throws IllegalArgumentException  {
@@ -56,10 +51,6 @@ public class Game {
 
         board.moveFigure(currentPosition, moveTo);
         switchTurn();
-    }
-
-    public boolean isGameOver() {
-        return (isBlackWin() || isWhiteWin());
     }
 
     private boolean isWhiteWin() {
