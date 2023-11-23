@@ -34,29 +34,15 @@ public class Board {
     }
 
     public static ArrayList<BoardPosition> getPositionNeighbors(BoardPosition currentPosition) {
-        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+        ArrayList<BoardPosition> allNeighbors = new ArrayList<BoardPosition>();
 
-        // Left
-        if (currentPosition.col != 0) {
-            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col - 1));
-        }
+        ArrayList<BoardPosition> horizontalNeighbors = getHorizontalNeighbors(currentPosition);
+        ArrayList<BoardPosition> verticalNeighbors = getVerticalNeighbors(currentPosition);
 
-        // Right
-        if (currentPosition.col != Constants.gridSize - 1) {
-            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col + 1));
-        }
+        allNeighbors.addAll(horizontalNeighbors);
+        allNeighbors.addAll(verticalNeighbors);
 
-        // Top
-        if (currentPosition.row != 0) {
-            neighbors.add(new BoardPosition(currentPosition.row -1, currentPosition.col));
-        }
-
-        // Bottom
-        if (currentPosition.row != Constants.gridSize - 1) {
-            neighbors.add(new BoardPosition(currentPosition.row +1, currentPosition.col));
-        }
-
-        return neighbors;
+        return allNeighbors;
     }
 
     public static ArrayList<BoardPosition> GetBorderPositions() {
@@ -109,12 +95,12 @@ public class Board {
         slots[currentPosition.row][currentPosition.col] = null;
         slots[targetPosition.row][targetPosition.col] = figureToMove;
 
+        updateBoardCheckAttacks();
     }
 
     private void removeFigure(BoardPosition position) {
         slots[position.row][position.col] = null;
     }
-
 
     private ArrayList<BoardPosition> getPositionsBetweenPositions(
             BoardPosition currentPosition,
@@ -152,5 +138,87 @@ public class Board {
 
 
         return positionsBetween;
+    }
+
+    private void updateBoardCheckAttacks() {
+        for (int row = 0; row < Constants.gridSize; row++) {
+            for (int col = 0; col < Constants.gridSize; col++) {
+                BoardPosition currentPosition = new BoardPosition(row, col);
+
+                boolean  isHorizontalAttacked  = checkHorizontalAttack(currentPosition);
+                boolean isVerticallyAttacked = checkVerticalAttack(currentPosition);
+
+                if (isHorizontalAttacked || isVerticallyAttacked) {
+                    removeFigure(currentPosition);
+                }
+            }
+        }
+    }
+
+    private static ArrayList<BoardPosition> getHorizontalNeighbors(BoardPosition currentPosition) {
+        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+
+        // Left
+        if (currentPosition.col != 0) {
+            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col - 1));
+        }
+
+        // Right
+        if (currentPosition.col != Constants.gridSize - 1) {
+            neighbors.add(new BoardPosition(currentPosition.row, currentPosition.col + 1));
+        }
+
+        return neighbors;
+    }
+
+    private static ArrayList<BoardPosition> getVerticalNeighbors(BoardPosition currentPosition) {
+        ArrayList<BoardPosition> neighbors = new ArrayList<>();
+
+        // Top
+        if (currentPosition.row != 0) {
+            neighbors.add(new BoardPosition(currentPosition.row -1, currentPosition.col));
+        }
+
+        // Bottom
+        if (currentPosition.row != Constants.gridSize - 1) {
+            neighbors.add(new BoardPosition(currentPosition.row +1, currentPosition.col));
+        }
+
+        return neighbors;
+    }
+
+    private boolean checkHorizontalAttack(BoardPosition position) {
+        ArrayList<BoardPosition> horizontalNeighbors = getHorizontalNeighbors(position);
+        if (horizontalNeighbors.size() != 2) {
+            return false;
+        }
+
+        Figure neighbor1 = slots[horizontalNeighbors.get(0).row][horizontalNeighbors.get(0).col];
+        Figure figureToCheckAttack = slots[position.row][position.col];
+        Figure neighbor2 = slots[horizontalNeighbors.get(1).row][horizontalNeighbors.get(1).col];
+
+        return (
+                (neighbor1.isWhite == neighbor2.isWhite) &&
+                (neighbor1.canAttack && neighbor2.canAttack) &&
+                (neighbor1.isWhite != figureToCheckAttack.isWhite)
+        );
+
+    }
+
+    private boolean checkVerticalAttack(BoardPosition position) {
+        ArrayList<BoardPosition> verticalNeighbors = getVerticalNeighbors(position);
+        if (verticalNeighbors.size() != 2) {
+            return false;
+        }
+
+        Figure neighbor1 = slots[verticalNeighbors.get(0).row][verticalNeighbors.get(0).col];
+        Figure figureToCheckAttack = slots[position.row][position.col];
+        Figure neighbor2 = slots[verticalNeighbors.get(1).row][verticalNeighbors.get(1).col];
+
+        return (
+                (neighbor1.isWhite == neighbor2.isWhite) &&
+                (neighbor1.canAttack && neighbor2.canAttack) &&
+                (neighbor1.isWhite != figureToCheckAttack.isWhite)
+        );
     }
 }

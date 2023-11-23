@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public  abstract class Figure {
     protected FigureType type;
+    public boolean isWhite;
+
+    public boolean canAttack;
 
     public FigureType getType() {
         return type;

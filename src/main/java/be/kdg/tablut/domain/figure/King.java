@@ -4,6 +4,8 @@ public class King extends Figure{
 
     public King() {
         type = FigureType.KING;
+        isWhite = true;
+        canAttack = false;
     }
 
     @Override
