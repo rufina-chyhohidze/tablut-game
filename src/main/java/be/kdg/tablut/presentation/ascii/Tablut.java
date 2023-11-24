@@ -6,6 +6,7 @@ import be.kdg.tablut.domain.game.MoveTurn;
 import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
 import be.kdg.tablut.presentation.ascii.output.BoardDisplayManager;
+import be.kdg.tablut.presentation.ascii.output.GameTitleDisplayManager;
 
 public class Tablut {
 
@@ -16,6 +17,8 @@ public class Tablut {
     }
 
     public void playGame() {
+        GameTitleDisplayManager.printGameTitle();
+
         BoardDisplayManager.printGameBoard(game.getBoard());
 
         BoardPosition playerInput = MoveInputManager.takeMoveInput();

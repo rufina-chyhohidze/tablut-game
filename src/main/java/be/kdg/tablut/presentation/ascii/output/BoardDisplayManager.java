@@ -10,18 +10,24 @@ public class BoardDisplayManager {
 
     private static void printColumns() {
 
+        char[] columnLabels = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
+
         for (int i = 0; i < Constants.gridSize; i++) {
-            System.out.printf("%10s |", "");
+            System.out.printf("%10s  ", columnLabels[i % columnLabels.length]);
         }
+        System.out.print("\n");
     }
 
     public static void printGameBoard(Board gameBoard) {
+        printColumns();
+        int rowNumber = 1;
+
         for (Figure[] row : gameBoard.getSlots()) {
 
-            System.out.println("-".repeat(Constants.gridSize * 12));
+            System.out.println(" ".repeat(5) + "-".repeat(Constants.gridSize * 12));
 
+            System.out.printf("%3d  |", rowNumber);
             for (Figure figure : row) {
-
                 if (figure == null) {
                     System.out.printf("%10s |", ' ');
                     continue;
@@ -30,9 +36,10 @@ public class BoardDisplayManager {
                 System.out.printf("%10s |", figure);
             }
 
+            rowNumber++;
             System.out.print("\n");
         }
-        System.out.println("-".repeat(Constants.gridSize * 12));
+        System.out.println(" ".repeat(5) + "-".repeat(Constants.gridSize * 12));
     }
 
 }
