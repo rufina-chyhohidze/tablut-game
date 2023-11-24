@@ -1,19 +1,15 @@
 package be.kdg.tablut.presentation.ascii.output;
 
 import be.kdg.tablut.domain.Constants;
+import be.kdg.tablut.presentation.ascii.AsciiConstants;
 import be.kdg.tablut.domain.board.Board;
 import be.kdg.tablut.domain.figure.Figure;
-
-import java.util.ArrayList;
 
 public class BoardDisplayManager {
 
     private static void printColumns() {
-
-        char[] columnLabels = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
-
         for (int i = 0; i < Constants.gridSize; i++) {
-            System.out.printf("%10s  ", columnLabels[i % columnLabels.length]);
+            System.out.printf("%10s  ", AsciiConstants.getColumnLabels().get(i % AsciiConstants.getColumnLabels().size()));
         }
         System.out.print("\n");
     }
