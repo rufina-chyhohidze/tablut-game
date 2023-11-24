@@ -12,7 +12,7 @@ public class Tablut {
     private final Game game;
 
     public Tablut() {
-        game = new Game();
+        game = new Game(null);
     }
 
     public void playGame() {

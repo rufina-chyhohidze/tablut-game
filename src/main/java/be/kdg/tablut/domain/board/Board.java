@@ -88,10 +88,6 @@ public class Board {
     public void moveFigure(BoardPosition currentPosition, BoardPosition targetPosition) throws IllegalArgumentException {
         Figure figureToMove = slots[currentPosition.row][currentPosition.col];
 
-        if (!canMoveTo(currentPosition, targetPosition)) {
-            throw new IllegalArgumentException("invalid move");
-        }
-
         slots[currentPosition.row][currentPosition.col] = null;
         slots[targetPosition.row][targetPosition.col] = figureToMove;
 

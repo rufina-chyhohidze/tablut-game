@@ -17,10 +17,13 @@ public class Game {
     private final LocalDateTime startedAt;
     private LocalDateTime finishedAt;
 
-    public Game() {
+    private final Player player;
+
+    public Game(Player player) {
         this.board = BoardFactory.CreateDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
+        this.player = player;
     }
 
     public Board getBoard() {
