@@ -1,11 +1,11 @@
 package be.kdg.tablut.presentation.ascii;
 
+import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
-import be.kdg.tablut.presentation.ascii.output.BoardDisplayManager;
-import be.kdg.tablut.presentation.ascii.output.TurnDisplayManager;
-import be.kdg.tablut.presentation.ascii.output.WelcomeScreenManager;
+import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
+import be.kdg.tablut.presentation.ascii.output.*;
 
 public class Tablut {
 
@@ -17,9 +17,12 @@ public class Tablut {
 
     public void start() {
         WelcomeScreenManager.printWelcomeScreen(game);
+        takeAndHandleCommandInput();
+    }
 
+    private void takeAndHandleCommandInput() {
+        CommandDisplayManager.printCommands();
         AsciiConstants.CommandType playerInput = CommandInputManager.takeCommandInput();
-
         handleCommandInput(playerInput);
     }
 
@@ -28,6 +31,9 @@ public class Tablut {
             case START -> {
                 playGame();
             }
+            case RULES -> {
+                showRules();
+            }
             default -> {
                 System.out.println("TODO");
             }
@@ -35,12 +41,38 @@ public class Tablut {
     }
 
     private void playGame() {
-        BoardDisplayManager.printGameBoard(game.getBoard());
-        TurnDisplayManager.printGameTurn(game);
+
+        while (!game.isGameOver()) {
+            // Show Board
+            BoardDisplayManager.printGameBoard(game.getBoard());
+
+            // Show who makes the move
+            TurnDisplayManager.printGameTurn(game);
+
+            // Move Player
+            takeAndHandleMoveInput();
+        }
+
+        System.out.println("Game Over!");
     }
 
     private void showRules() {
-
+        RulesDisplayManager.displayRules();
+        takeAndHandleCommandInput();
     }
 
+    private void takeAndHandleMoveInput() {
+
+        while (true) {
+            BoardPosition currentPosition = MoveInputManager.takeCurrentPositionInput();
+            BoardPosition targetPosition = MoveInputManager.takeTargetPositionInput();
+
+            try{
+                game.makeMove(currentPosition, targetPosition);
+                return;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }

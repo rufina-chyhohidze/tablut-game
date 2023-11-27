@@ -76,7 +76,11 @@ public class Game {
         ArrayList<BoardPosition> positionNeighbors = Board.getPositionNeighbors(kingPosition);
 
         for (BoardPosition position: positionNeighbors) {
-            if (!board.isSlotTaken(position) && !position.isThrone()){
+            // if not taken by enemy or taken by guard --> false
+            if (
+                    (!board.isSlotTaken(position) && !position.isThrone()) ||
+                    (board.isSlotTaken(position) && board.getSlots()[position.row][position.col].isWhite)
+            ){
                 return false;
             }
         }
