@@ -17,12 +17,21 @@ public class AuthorizationManager {
                 """);
     }
 
-    public static Player authorizePlayer() {
+    public static Player authorizeWhitePlayer() {
         printIntroMessage();
         Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter username: ");
+        System.out.print("Enter White Player username: ");
         String username = keyboard.nextLine();
 
         return new Player(username, MoveTurn.WHITE);
+    }
+
+    public static Player authorizeBlackPlayer() {
+        printIntroMessage();
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Enter Black Player username: ");
+        String username = keyboard.nextLine();
+
+        return new Player(username, MoveTurn.BLACK);
     }
 }

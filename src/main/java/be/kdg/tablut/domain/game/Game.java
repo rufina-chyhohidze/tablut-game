@@ -8,7 +8,6 @@ import be.kdg.tablut.domain.player.Player;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Game {
 
@@ -16,14 +15,15 @@ public class Game {
     private MoveTurn moveTurn;
     private final LocalDateTime startedAt;
     private LocalDateTime finishedAt;
+    private final Player playerWhite;
+    private final Player playerBlack;
 
-    private final Player player;
-
-    public Game(Player player) {
+    public Game(Player playerWhite, Player playerBlack) {
         this.board = BoardFactory.CreateDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
-        this.player = player;
+        this.playerWhite = playerWhite;
+        this.playerBlack = playerBlack;
     }
 
     public Board getBoard() {
@@ -37,8 +37,12 @@ public class Game {
         this.moveTurn = moveTurn;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getPlayerWhite() {
+        return playerWhite;
+    }
+
+    public Player getPlayerBlack() {
+        return playerBlack;
     }
 
     public boolean isGameOver() {
