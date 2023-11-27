@@ -8,16 +8,12 @@ import java.util.Objects;
 public class TurnDisplayManager {
     public static void printGameTurn(Game game) {
 
-        String displayTurn;
-
         MoveTurn currentTurn = game.getMoveTurn();
 
         if (Objects.requireNonNull(currentTurn) == MoveTurn.BLACK) {
-            displayTurn = "BLACK";
+            System.out.println("BLACK player makes move");
         } else {
-            displayTurn = "WHITE";
+            System.out.println("WHITE player makes move");
         }
-
-        System.out.printf("\n%s player moves \n", displayTurn);
     }
 }

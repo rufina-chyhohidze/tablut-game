@@ -36,6 +36,7 @@ public class BoardDisplayManager {
             System.out.print("\n");
         }
         System.out.println(" ".repeat(5) + "-".repeat(Constants.gridSize * 12));
+        System.out.println("\n".repeat(3));
     }
 
 }
