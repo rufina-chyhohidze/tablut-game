@@ -34,6 +34,12 @@ public class Tablut {
             case RULES -> {
                 showRules();
             }
+            case COMMANDS -> {
+                showCommands();
+            }
+            case LEADERBOARD -> {
+
+            }
             default -> {
                 System.out.println("TODO");
             }
@@ -59,6 +65,14 @@ public class Tablut {
     private void showRules() {
         RulesDisplayManager.displayRules();
         takeAndHandleCommandInput();
+    }
+
+    private void showCommands() {
+        takeAndHandleCommandInput();
+    }
+
+    private void showLeaderBoard() {
+        System.out.println("TODO");
     }
 
     private void takeAndHandleMoveInput() {
