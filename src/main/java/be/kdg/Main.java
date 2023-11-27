@@ -6,9 +6,10 @@ import be.kdg.tablut.presentation.ascii.input.AuthorizationManager;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = AuthorizationManager.authorizePlayer();
+        Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
+        Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
 
-        Tablut tablut = new Tablut(player);
+        Tablut tablut = new Tablut(playerWhite, playerBlack);
 
         tablut.start();
     }

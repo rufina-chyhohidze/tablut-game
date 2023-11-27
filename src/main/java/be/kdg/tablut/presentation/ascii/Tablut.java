@@ -11,8 +11,8 @@ public class Tablut {
 
     private final Game game;
 
-    public Tablut(Player player) {
-        game = new Game(player);
+    public Tablut(Player playerWhite, Player playerBlack) {
+        game = new Game(playerWhite, playerBlack);
     }
 
     public void start() {
@@ -37,6 +37,10 @@ public class Tablut {
     private void playGame() {
         BoardDisplayManager.printGameBoard(game.getBoard());
         TurnDisplayManager.printGameTurn(game);
+    }
+
+    private void showRules() {
+
     }
 
 }
