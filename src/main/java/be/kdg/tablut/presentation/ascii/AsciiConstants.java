@@ -22,4 +22,11 @@ public class AsciiConstants {
         return columnsLabels;
     }
 
+    public enum CommandType {
+        START,
+        RULES,
+        COMMANDS,
+        LEADERBOARD,
+    }
+
 }

@@ -37,6 +37,10 @@ public class Game {
         this.moveTurn = moveTurn;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public boolean isGameOver() {
         return (isBlackWin() || isWhiteWin());
     }

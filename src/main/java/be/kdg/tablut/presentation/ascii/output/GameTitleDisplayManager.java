@@ -2,7 +2,7 @@ package be.kdg.tablut.presentation.ascii.output;
 
 public class GameTitleDisplayManager {
 
-    public static void printGameTitle() {
+    static void printGameTitle() {
 
         System.out.print("\n".repeat(3));
 
