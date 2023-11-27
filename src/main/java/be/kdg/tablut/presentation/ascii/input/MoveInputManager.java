@@ -8,9 +8,24 @@ import java.util.*;
 
 public class MoveInputManager {
 
-    public static BoardPosition takePositionInput() {
+    public static BoardPosition takeTargetPositionInput() {
         Scanner keyboard = new Scanner(System.in);
         while (true) {
+            System.out.println("Enter Target Position");
+            try{
+                int col = takeColumnInput();
+                int row = takeRowInput();
+                return new BoardPosition(row , col);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static BoardPosition takeCurrentPositionInput() {
+        Scanner keyboard = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter Current Position");
             try{
                 int col = takeColumnInput();
                 int row = takeRowInput();
