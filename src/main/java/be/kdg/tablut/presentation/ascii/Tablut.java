@@ -1,25 +1,42 @@
 package be.kdg.tablut.presentation.ascii;
 
-import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.game.Game;
-import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
+import be.kdg.tablut.domain.player.Player;
+import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
 import be.kdg.tablut.presentation.ascii.output.BoardDisplayManager;
-import be.kdg.tablut.presentation.ascii.output.GameTitleDisplayManager;
+import be.kdg.tablut.presentation.ascii.output.TurnDisplayManager;
+import be.kdg.tablut.presentation.ascii.output.WelcomeScreenManager;
 
 public class Tablut {
 
     private final Game game;
 
-    public Tablut() {
-        game = new Game(null);
+    public Tablut(Player player) {
+        game = new Game(player);
     }
 
-    public void playGame() {
-        GameTitleDisplayManager.printGameTitle();
+    public void start() {
+        WelcomeScreenManager.printWelcomeScreen(game);
 
+        AsciiConstants.CommandType playerInput = CommandInputManager.takeCommandInput();
+
+        handleCommandInput(playerInput);
+    }
+
+    private void handleCommandInput(AsciiConstants.CommandType commandType) {
+        switch (commandType) {
+            case START -> {
+                playGame();
+            }
+            default -> {
+                System.out.println("TODO");
+            }
+        }
+    }
+
+    private void playGame() {
         BoardDisplayManager.printGameBoard(game.getBoard());
-
-        BoardPosition playerInput = MoveInputManager.takePositionInput();
-        System.out.printf("%s %s", playerInput.row, playerInput.col);
+        TurnDisplayManager.printGameTurn(game);
     }
+
 }

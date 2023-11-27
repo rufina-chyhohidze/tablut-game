@@ -1,10 +1,15 @@
 package be.kdg;
 
+import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.Tablut;
+import be.kdg.tablut.presentation.ascii.input.AuthorizationManager;
 
 public class Main {
     public static void main(String[] args) {
-        Tablut tablut = new Tablut();
-        tablut.playGame();
+        Player player = AuthorizationManager.authorizePlayer();
+
+        Tablut tablut = new Tablut(player);
+
+        tablut.start();
     }
 }
