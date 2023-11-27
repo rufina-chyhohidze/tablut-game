@@ -15,9 +15,10 @@ public class BoardDisplayManager {
     }
 
     public static void printGameBoard(Board gameBoard) {
+        System.out.println("\n".repeat(2));
+
         printColumns();
         int rowNumber = 1;
-
         for (Figure[] row : gameBoard.getSlots()) {
 
             System.out.println(" ".repeat(5) + "-".repeat(Constants.gridSize * 12));
@@ -36,7 +37,7 @@ public class BoardDisplayManager {
             System.out.print("\n");
         }
         System.out.println(" ".repeat(5) + "-".repeat(Constants.gridSize * 12));
-        System.out.println("\n".repeat(3));
+        System.out.println("\n".repeat(2));
     }
 
 }
