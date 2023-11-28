@@ -9,6 +9,5 @@ public class WelcomeScreenManager {
 
         System.out.printf("Welcome to Tablut, %s\n\n", game.getPlayerWhite().getUsername());
         System.out.printf("Welcome to Tablut, %s\n\n", game.getPlayerBlack().getUsername());
-
     }
 }

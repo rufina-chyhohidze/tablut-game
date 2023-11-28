@@ -6,13 +6,16 @@ import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
 import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
 import be.kdg.tablut.presentation.ascii.output.*;
+import be.kdg.tablut.presentation.ascii.service.LeaderboardService;
 
 public class Tablut {
 
     private final Game game;
+    private final LeaderboardService leaderboardService;
 
     public Tablut(Player playerWhite, Player playerBlack) {
         game = new Game(playerWhite, playerBlack);
+        leaderboardService = new LeaderboardService();
     }
 
     public void start() {
@@ -38,7 +41,7 @@ public class Tablut {
                 showCommands();
             }
             case LEADERBOARD -> {
-
+                showLeaderBoard();
             }
             default -> {
                 System.out.println("TODO");
@@ -60,6 +63,14 @@ public class Tablut {
         }
 
         System.out.println("Game Over!");
+        gameOver();
+    }
+
+    private void gameOver() {
+        System.out.println("Saving Game Result...");
+        leaderboardService.handleGameOver(game);
+        LeaderboardDisplayManager.printLeaderBoard();
+        EndGameScreenManager.printEndGameScreen();
     }
 
     private void showRules() {
@@ -73,6 +84,7 @@ public class Tablut {
 
     private void showLeaderBoard() {
         System.out.println("TODO");
+        takeAndHandleCommandInput();
     }
 
     private void takeAndHandleMoveInput() {

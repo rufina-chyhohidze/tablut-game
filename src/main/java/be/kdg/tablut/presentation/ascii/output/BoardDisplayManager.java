@@ -9,7 +9,10 @@ public class BoardDisplayManager {
 
     private static void printColumns() {
         for (int i = 0; i < Constants.gridSize; i++) {
-            System.out.printf("%10s  ", AsciiConstants.getColumnLabels().get(i % AsciiConstants.getColumnLabels().size()));
+            System.out.printf(
+                    "%10s  ",
+                    AsciiConstants.getColumnLabels().get(i % AsciiConstants.getColumnLabels().size())
+            );
         }
         System.out.print("\n");
     }

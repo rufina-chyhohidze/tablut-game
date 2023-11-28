@@ -9,6 +9,6 @@ public class Guard extends Figure{
 
     @Override
     public String toString() {
-        return "G";
+        return "g";
     }
 }
