@@ -10,7 +10,7 @@ public class King extends Figure{
 
     @Override
     public String toString() {
-        return "K";
+        return "k";
     }
 
 }

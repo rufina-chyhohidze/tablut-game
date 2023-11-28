@@ -69,6 +69,10 @@ public class Board {
         }
 
         Figure figureToMove = slots[currentPosition.row][currentPosition.col];
+        if (figureToMove == null) {
+            return false;
+        }
+
         ArrayList<BoardPosition> possibleMoves = figureToMove.getPossibleMoves(currentPosition);
 
         if (!possibleMoves.contains(targetPosition)) {

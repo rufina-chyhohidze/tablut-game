@@ -65,4 +65,10 @@ public class BoardFactory {
         return new Board(slots);
     }
 
+    public static Board getWhiteWonGrid() {
+        Figure[][] slots = new Figure[Constants.gridSize][Constants.gridSize];
+        slots[0][0] = new King();
+        return new Board(slots);
+    }
+
 }

@@ -14,12 +14,11 @@ public class Game {
     private final Board board;
     private MoveTurn moveTurn;
     private final LocalDateTime startedAt;
-    private LocalDateTime finishedAt;
     private final Player playerWhite;
     private final Player playerBlack;
 
     public Game(Player playerWhite, Player playerBlack) {
-        this.board = BoardFactory.CreateDefaultBoard();
+        this.board = BoardFactory.getWhiteWonGrid();
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
         this.playerWhite = playerWhite;
@@ -52,6 +51,10 @@ public class Game {
     public void makeMove(BoardPosition currentPosition, BoardPosition moveTo) throws IllegalArgumentException  {
 
         Figure figureToMove = board.getSlots()[currentPosition.row][currentPosition.col];
+        if (figureToMove == null) {
+            throw new IllegalArgumentException("Invalid Figure to move");
+        }
+
         if (!isFigureTurn(figureToMove)) {
             throw new IllegalArgumentException("Invalid Figure to move");
         }
@@ -64,13 +67,13 @@ public class Game {
         switchTurn();
     }
 
-    private boolean isWhiteWin() {
+    public boolean isWhiteWin() {
         BoardPosition kingPosition = board.GetKingPosition();
         ArrayList<BoardPosition> borderPositions = Board.GetBorderPositions();
         return borderPositions.contains(kingPosition);
     }
 
-    private boolean isBlackWin() {
+    public boolean isBlackWin() {
         BoardPosition kingPosition = board.GetKingPosition();
 
         ArrayList<BoardPosition> positionNeighbors = Board.getPositionNeighbors(kingPosition);

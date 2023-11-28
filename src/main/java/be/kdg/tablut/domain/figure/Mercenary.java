@@ -10,6 +10,6 @@ public class Mercenary extends Figure {
 
     @Override
     public String toString() {
-        return "M";
+        return "m";
     }
 }
