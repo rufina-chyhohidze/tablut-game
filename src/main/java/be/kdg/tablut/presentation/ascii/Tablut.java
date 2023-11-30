@@ -31,21 +31,15 @@ public class Tablut {
 
     private void handleCommandInput(AsciiConstants.CommandType commandType) {
         switch (commandType) {
-            case START -> {
-                playGame();
-            }
-            case RULES -> {
-                showRules();
-            }
-            case COMMANDS -> {
-                showCommands();
-            }
-            case LEADERBOARD -> {
-                showLeaderBoard();
-            }
-            default -> {
-                System.out.println("TODO");
-            }
+            case START -> playGame();
+
+            case RULES -> showRules();
+
+            case COMMANDS -> showCommands();
+
+            case LEADERBOARD -> showLeaderBoard();
+
+            default -> System.out.println("TODO");
         }
     }
 
@@ -63,13 +57,27 @@ public class Tablut {
         }
 
         System.out.println("Game Over!");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ignored) {}
+
         gameOver();
     }
 
     private void gameOver() {
         System.out.println("Saving Game Result...");
         leaderboardService.handleGameOver(game);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ignored) {}
+
         LeaderboardDisplayManager.printLeaderBoard();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ignored) {}
+
         EndGameScreenManager.printEndGameScreen();
     }
 
