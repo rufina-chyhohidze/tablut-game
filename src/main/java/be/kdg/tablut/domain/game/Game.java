@@ -18,7 +18,7 @@ public class Game {
     private final Player playerBlack;
 
     public Game(Player playerWhite, Player playerBlack) {
-        this.board = BoardFactory.getWhiteWonGrid();
+        this.board = BoardFactory.getDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
         this.playerWhite = playerWhite;

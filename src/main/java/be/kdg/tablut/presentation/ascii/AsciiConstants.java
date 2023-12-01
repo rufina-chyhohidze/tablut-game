@@ -1,5 +1,5 @@
 package be.kdg.tablut.presentation.ascii;
-import java.util.*;
+import java.util.ArrayList;
 
 public class AsciiConstants {
     public static ArrayList<String> getColumnLabels() {
