@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BoardFactory {
 
-    public static Board CreateDefaultBoard() {
+    public static Board getDefaultBoard() {
 
         Figure[][] slots = new Figure[Constants.gridSize][Constants.gridSize];
 
