@@ -14,10 +14,10 @@ public class LeaderboardService {
 
     public void handleGameOver(Game game) {
         Player playerWon = getPlayerWon(game);
-        repository.savePlayerWin(playerWon);
+        repository.savePlayerWin(playerWon, game);
 
         Player playerLost = getPlayerLost(game);
-        repository.savePlayerLost(playerLost);
+        repository.savePlayerLost(playerLost, game);
     }
 
     private Player getPlayerWon(Game game) {
