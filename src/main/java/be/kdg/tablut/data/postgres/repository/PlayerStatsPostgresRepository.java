@@ -3,11 +3,10 @@ package be.kdg.tablut.data.postgres.repository;
 import be.kdg.tablut.data.postgres.ConnectionManager;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.game.ScoreManager;
-import be.kdg.tablut.domain.player.IPlayerStatsRepository;
+import be.kdg.tablut.domain.player.repository.IPlayerStatsRepository;
 import be.kdg.tablut.domain.player.Player;
 
 import java.sql.*;
-import java.time.ZoneId;
 
 public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
 

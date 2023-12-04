@@ -2,7 +2,7 @@ package be.kdg.tablut.presentation.ascii.service;
 
 import be.kdg.tablut.di.RepositoryProvider;
 import be.kdg.tablut.domain.game.Game;
-import be.kdg.tablut.domain.player.IPlayerStatsRepository;
+import be.kdg.tablut.domain.player.repository.IPlayerStatsRepository;
 import be.kdg.tablut.domain.player.Player;
 
 public class LeaderboardService {

@@ -1,6 +1,7 @@
-package be.kdg.tablut.domain.player;
+package be.kdg.tablut.domain.player.repository;
 
 import be.kdg.tablut.domain.game.Game;
+import be.kdg.tablut.domain.player.Player;
 
 public interface IPlayerStatsRepository {
     void savePlayerWin(Player player, Game game);

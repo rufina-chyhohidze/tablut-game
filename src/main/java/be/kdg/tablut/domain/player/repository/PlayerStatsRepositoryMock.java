@@ -1,8 +1,10 @@
-package be.kdg.tablut.domain.player;
+package be.kdg.tablut.domain.player.repository;
 
 import be.kdg.tablut.domain.game.Game;
+import be.kdg.tablut.domain.player.Player;
+import be.kdg.tablut.domain.player.repository.IPlayerStatsRepository;
 
-public class PlayerStatsRepositoryMock implements IPlayerStatsRepository{
+public class PlayerStatsRepositoryMock implements IPlayerStatsRepository {
     @Override
     public void savePlayerWin(Player player, Game game) {
         System.out.printf("Saving Player %s win result...\n\n", player.getUsername());
