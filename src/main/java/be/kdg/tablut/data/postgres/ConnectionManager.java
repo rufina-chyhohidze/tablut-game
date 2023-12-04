@@ -1,10 +1,8 @@
 package be.kdg.tablut.data.postgres;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 
 public class ConnectionManager {
     public static Connection getDBConnection() throws SQLException {
@@ -22,7 +20,7 @@ public class ConnectionManager {
     }
 
     public static void initTables(Connection conn) throws SQLException {
-        Statement st = conn.createStatement();
+       Statement st = conn.createStatement();
 
         st.execute(""" 
             CREATE TABLE IF NOT EXISTS player_scores (
@@ -31,5 +29,7 @@ public class ConnectionManager {
                 game_date timestamp
             );
         """);
+
+        conn.commit();
     }
 }
