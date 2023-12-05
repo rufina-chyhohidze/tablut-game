@@ -1,11 +1,10 @@
 package be.kdg.tablut.di;
 
-import be.kdg.tablut.domain.player.IPlayerStatsRepository;
-import be.kdg.tablut.domain.player.PlayerStatsRepositoryMock;
+import be.kdg.tablut.data.postgres.repository.PlayerStatsPostgresRepository;
+import be.kdg.tablut.domain.player.repository.IPlayerStatsRepository;
 
 public class RepositoryProvider {
     public static IPlayerStatsRepository providePlayerStatsRepository(){
-        // TODO: add DB Repository implementation
-        return new PlayerStatsRepositoryMock();
+        return new PlayerStatsPostgresRepository();
     }
 }

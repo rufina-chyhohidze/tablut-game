@@ -6,6 +6,7 @@ import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.figure.Figure;
 import be.kdg.tablut.domain.player.Player;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -20,12 +21,16 @@ public class Game {
     public Game(Player playerWhite, Player playerBlack) {
         // if you want to see the end-game screens
         // Use This line instead
-//        this.board = BoardFactory.getWhiteWonGrid();
-        this.board = BoardFactory.getDefaultBoard();
+        this.board = BoardFactory.getWhiteWonGrid();
+//        this.board = BoardFactory.getDefaultBoard();
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
         this.playerWhite = playerWhite;
         this.playerBlack = playerBlack;
+    }
+
+    public LocalDateTime getStartedAt() {
+        return startedAt;
     }
 
     public Board getBoard() {
