@@ -3,6 +3,7 @@ package be.kdg.tablut.presentation.ascii;
 import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.player.Player;
+import be.kdg.tablut.presentation.ascii.input.AuthorizationManager;
 import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
 import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
 import be.kdg.tablut.presentation.ascii.output.*;
@@ -13,7 +14,9 @@ public class Tablut {
     private final Game game;
     private final LeaderboardService leaderboardService;
 
-    public Tablut(Player playerWhite, Player playerBlack) {
+    public Tablut() {
+        Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
+        Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
         game = new Game(playerWhite, playerBlack);
         leaderboardService = new LeaderboardService();
     }
@@ -72,7 +75,7 @@ public class Tablut {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {}
 
-        LeaderboardDisplayManager.printLeaderBoard();
+        leaderboardService.printPlayerLeaderboard();
 
         try {
             Thread.sleep(500);
@@ -91,7 +94,7 @@ public class Tablut {
     }
 
     private void showLeaderBoard() {
-        System.out.println("TODO");
+        leaderboardService.printPlayerLeaderboard();
         takeAndHandleCommandInput();
     }
 
