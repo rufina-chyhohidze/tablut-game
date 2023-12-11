@@ -25,4 +25,9 @@ public class PlayerStatsRepositoryMock implements IPlayerStatsRepository {
     public PlayerLeaderboardStats[] getPlayerLeaderboardStatus(String username) {
         return new PlayerLeaderboardStats[0];
     }
+
+    @Override
+    public PlayerLeaderboardStats[] getOverallLeaderboard() {
+        return new PlayerLeaderboardStats[0];
+    }
 }

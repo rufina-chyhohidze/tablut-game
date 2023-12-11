@@ -36,4 +36,9 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
         return new PlayerLeaderboardStats[0];
     }
 
+    @Override
+    public PlayerLeaderboardStats[] getOverallLeaderboard() {
+        return new PlayerLeaderboardStats[0];
+    }
+
 }
