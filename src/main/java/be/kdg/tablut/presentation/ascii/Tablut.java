@@ -5,13 +5,14 @@ import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.input.AuthorizationManager;
 import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
+import be.kdg.tablut.presentation.ascii.input.EndGameCommandInputManager;
 import be.kdg.tablut.presentation.ascii.input.MoveInputManager;
 import be.kdg.tablut.presentation.ascii.output.*;
 import be.kdg.tablut.presentation.ascii.service.LeaderboardService;
 
 public class Tablut {
 
-    private final Game game;
+    private Game game;
     private final LeaderboardService leaderboardService;
 
     public Tablut() {
@@ -32,6 +33,12 @@ public class Tablut {
         handleCommandInput(playerInput);
     }
 
+    private void takeAndHandleEndGameCommandInput() {
+        EndGameCommandsManager.printEndGameCommands();
+        AsciiConstants.EndGameCommand command = EndGameCommandInputManager.takeEndGameCommandInput();
+        handleEndGameCommand(command);
+    }
+
     private void handleCommandInput(AsciiConstants.CommandType commandType) {
         switch (commandType) {
             case START -> playGame();
@@ -43,6 +50,18 @@ public class Tablut {
             case LEADERBOARD -> showLeaderBoard();
 
             default -> System.out.println("TODO");
+        }
+    }
+
+    private void handleEndGameCommand(AsciiConstants.EndGameCommand command) {
+        switch (command) {
+            case RESTART -> {
+                reset();
+                start();
+            }
+            case QUIT -> {
+                EndGameScreenManager.printEndGameScreen();
+            }
         }
     }
 
@@ -81,7 +100,7 @@ public class Tablut {
             Thread.sleep(500);
         } catch (InterruptedException ignored) {}
 
-        EndGameScreenManager.printEndGameScreen();
+        takeAndHandleEndGameCommandInput();
     }
 
     private void showRules() {
@@ -111,5 +130,11 @@ public class Tablut {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void reset() {
+        Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
+        Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
+        this.game = new Game(playerWhite, playerBlack);
     }
 }
