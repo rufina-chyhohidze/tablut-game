@@ -23,11 +23,23 @@ public class ConnectionManager {
        Statement st = conn.createStatement();
 
         st.execute(""" 
-            CREATE TABLE IF NOT EXISTS player_scores (
-                player_name varchar(255),
-                score numeric(999) default 0,
-                game_date timestamp
-            );
+            CREATE TABLE IF NOT EXISTS INT_player_scores (
+                   INT_id SERIAL primary key,
+                   INT_player_name varchar(20),
+                   INT_score numeric(10) default 0,
+                   INT_game_date timestamp
+              );
+        """);
+
+        st.execute("""
+            CREATE TABLE IF NOT EXISTS INT_game_states (
+                 white_username varchar(255),
+                 black_username varchar(255),
+                 turn varchar(255) not null ,
+                 started_At time not null ,
+                 board varchar(255) not null ,
+                 PRIMARY KEY (white_username, black_username)
+             );
         """);
 
         conn.commit();
