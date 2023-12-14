@@ -44,7 +44,7 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         try {
             PreparedStatement st = db.prepareStatement("""
                 DELETE FROM int_game_states 
-                WHERE black_username = ? AND white_username = ?;          
+                WHERE INT_black_username = ? AND INT_white_username = ?;          
             """);
 
             st.setString(1, GameStateMapper.getBlackPlayerStoreValue(game));
@@ -63,16 +63,14 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         try {
             PreparedStatement st = db.prepareStatement("""
                     UPDATE int_game_states 
-                    SET 
-                        board=?,
-                        turn=?
-                    WHERE black_username = ? AND white_username = ?;
+                    SET
+                        INT_turn = ?
+                    WHERE INT_black_username = ? AND INT_white_username = ?;
             """);
 
-            st.setString(1, GameStateMapper.getBoardValueToSave(game));
-            st.setString(2, GameStateMapper.getTurnValueToStore(game));
-            st.setString(3, GameStateMapper.getBlackPlayerStoreValue(game));
-            st.setString(4, GameStateMapper.getWhitePlayerStoreValue(game));
+            st.setString(1, GameStateMapper.getTurnValueToStore(game));
+            st.setString(2, GameStateMapper.getBlackPlayerStoreValue(game));
+            st.setString(3, GameStateMapper.getWhitePlayerStoreValue(game));
 
             st.executeUpdate();
             db.commit();
@@ -86,9 +84,9 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         try {
             PreparedStatement st = db.prepareStatement("""
                     INSERT INTO int_game_states 
-                        (white_username, black_username, turn, started_at, board) 
+                        (int_white_username, int_black_username, int_turn, int_started_at) 
                     VALUES (
-                        ?, ?, ?, ?, ?
+                        ?, ?, ?, ?
                     );
             """);
 
@@ -97,7 +95,6 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(3, GameStateMapper.getTurnValueToStore(game));
 
             st.setTime(4, GameStateMapper.getStartedAtValueToStore(game));
-            st.setString(5, GameStateMapper.getBoardValueToSave(game));
 
             st.executeUpdate();
             db.commit();

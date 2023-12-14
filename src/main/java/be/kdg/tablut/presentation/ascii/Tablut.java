@@ -1,5 +1,6 @@
 package be.kdg.tablut.presentation.ascii;
 
+import be.kdg.tablut.data.postgres.ConnectionManager;
 import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.player.Player;
@@ -16,6 +17,11 @@ public class Tablut {
     private final LeaderboardService leaderboardService;
 
     public Tablut() {
+        try{
+            ConnectionManager.initTables();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
         Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
         game = new Game(playerWhite, playerBlack);

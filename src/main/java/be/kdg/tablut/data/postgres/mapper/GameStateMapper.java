@@ -5,11 +5,6 @@ import be.kdg.tablut.domain.game.Game;
 import java.sql.Time;
 
 public class GameStateMapper {
-
-    public static String getBoardValueToSave(Game game) {
-            return "TODO";
-    }
-
     public static String getWhitePlayerStoreValue(Game game) {
         return game.getPlayerWhite().getUsername();
     }
