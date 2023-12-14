@@ -4,15 +4,10 @@ import be.kdg.tablut.domain.board.Board;
 
 public class BoardState {
 
-    private int id;
     private BoardFigure[] figures;
 
-    public int getId() {
-        return id;
-    }
-
-    private void setId(int id) {
-        this.id = id;
+    public BoardState(BoardFigure[] figures) {
+        setFigures(figures);
     }
 
     public BoardFigure[] getFigures() {
