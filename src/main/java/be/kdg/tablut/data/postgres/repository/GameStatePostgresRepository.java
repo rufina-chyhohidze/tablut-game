@@ -10,7 +10,6 @@ import be.kdg.tablut.domain.player.Player;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 
 public class GameStatePostgresRepository  implements IGameStateRepository {
