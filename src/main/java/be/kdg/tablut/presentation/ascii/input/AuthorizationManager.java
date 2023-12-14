@@ -9,7 +9,7 @@ public class AuthorizationManager {
 
     private static void printIntroMessage() {
         System.out.println("""
-                        _       _   _            _         _   _         \s
+                                _       _   _            _         _   _         \s
                                /_\\ _  _| |_| |_  ___ _ _(_)_____ _| |_(_)___ _ _ \s
                               / _ \\ || |  _| ' \\/ _ \\ '_| |_ / _` |  _| / _ \\ ' \\\s
                              /_/ \\_\\_,_|\\__|_||_\\___/_| |_/__\\__,_|\\__|_\\___/_||_|

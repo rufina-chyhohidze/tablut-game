@@ -15,15 +15,47 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
     private Connection connection;
 
     public PlayerStatsPostgresRepository() {
+        try {
+
+            connection = ConnectionManager.getDBConnection();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void savePlayerWin(Player player, Game game) {
+
+        String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, player.getUsername());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerWonScore());
+            preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void savePlayerLost(Player player, Game game) {
+        String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, player.getUsername());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerLostScore());
+            preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -34,6 +66,8 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
     @Override
     public PlayerLeaderboardStats[] getPlayerLeaderboardStatus(String username) {
         return new PlayerLeaderboardStats[0];
+
+
     }
 
     @Override

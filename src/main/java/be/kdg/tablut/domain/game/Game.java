@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private final Board board;
+    private Board board;
     private MoveTurn moveTurn;
-    private final LocalDateTime startedAt;
+    private LocalDateTime startedAt;
     private final Player playerWhite;
     private final Player playerBlack;
 
@@ -33,14 +33,22 @@ public class Game {
         return startedAt;
     }
 
+    public void setStartedAt(LocalDateTime time) {
+        this.startedAt = time;
+    }
+
     public Board getBoard() {
         return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public MoveTurn getMoveTurn() {
         return moveTurn;
     }
-    private void setMoveTurn(MoveTurn moveTurn) {
+    public void setMoveTurn(MoveTurn moveTurn) {
         this.moveTurn = moveTurn;
     }
 

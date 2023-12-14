@@ -12,7 +12,7 @@ public class ScoreManager {
 
 
     private static double getGameDuration(Game game) {
-        return 0.;
+        return 1.;
     }
 
 }
