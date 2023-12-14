@@ -10,4 +10,6 @@ public interface IPlayerStatsRepository {
     void savePlayerDraw(Player player, Game game);
 
     PlayerLeaderboardStats[] getPlayerLeaderboardStatus(String username);
+
+    PlayerLeaderboardStats[] getOverallLeaderboard();
 }

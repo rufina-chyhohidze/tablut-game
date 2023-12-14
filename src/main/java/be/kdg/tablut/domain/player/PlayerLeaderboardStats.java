@@ -4,6 +4,17 @@ import java.time.LocalDateTime;
 
 public class PlayerLeaderboardStats {
 
+    public PlayerLeaderboardStats(
+            String playerName,
+            Double gameScore,
+            LocalDateTime gameDate
+    ) {
+        this.playerName = playerName;
+        this.gameDate = gameDate;
+        this.gameScore = gameScore;
+    }
+
+
     private String playerName;
 
     public String getPlayerName() {
