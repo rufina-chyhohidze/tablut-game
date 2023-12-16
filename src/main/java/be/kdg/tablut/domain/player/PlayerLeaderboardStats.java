@@ -1,6 +1,7 @@
 package be.kdg.tablut.domain.player;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class PlayerLeaderboardStats {
 
