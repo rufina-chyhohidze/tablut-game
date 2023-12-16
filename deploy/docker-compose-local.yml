@@ -9,8 +9,8 @@ services:
 
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DATABASE: tablut
+      POSTGRES_PASSWORD: Student_1234
+      POSTGRES_DATABASE: int_tablut
 
     ports:
       - "5432:5432"
