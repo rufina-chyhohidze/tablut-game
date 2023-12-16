@@ -62,15 +62,19 @@ public class BoardStatePostgresRepository {
     }
 
     public void refreshBoardState(Game game, int gameStateId) {
+        System.out.printf("In refreshBoardState gameStateId = %s\n", gameStateId);
         dropBoardState(gameStateId);
         createNewBoardState(gameStateId);
         saveNewBoardState(game, gameStateId);
     }
 
-    private void saveNewBoardState(Game game, int boardStateId) {
+    private void saveNewBoardState(Game game, int gamedStateId) {
         BoardState boardState = BoardStateMapper.getBoardStateFromGame(game);
 
         try {
+
+            int boardId = getBoardIdByGameStateId(gamedStateId);
+
             for (BoardFigure figure : boardState.getFigures())
             {
                 PreparedStatement st = db.prepareStatement("""
@@ -78,7 +82,7 @@ public class BoardStatePostgresRepository {
                     VALUES (?, ?, ?, ?);
                 """);
 
-                st.setInt(1, boardStateId);
+                st.setInt(1, boardId);
                 st.setInt(2, figure.getRowNumber());
                 st.setInt(3, figure.getColNumber());
                 st.setString(4, figure.getFigure());
@@ -93,6 +97,7 @@ public class BoardStatePostgresRepository {
     }
 
     private void createNewBoardState(int gameStateId) {
+        System.out.printf("In createNewBoardState gameStateId = %s\n", gameStateId);
         try{
             PreparedStatement st = db.prepareStatement("""
                 INSERT INTO int_game_boards (int_game_state_id) VALUES (?);
@@ -111,7 +116,7 @@ public class BoardStatePostgresRepository {
     private void dropBoardState(int gameStateId) {
         try{
             PreparedStatement st = db.prepareStatement("""
-                DELETE FROM int_game_boards WHERE int_game_state_id = ?''
+                DELETE FROM int_game_boards WHERE int_game_state_id = ?
             """);
 
             st.setInt(1, gameStateId);
@@ -125,4 +130,24 @@ public class BoardStatePostgresRepository {
         }
     }
 
+    private int getBoardIdByGameStateId(int gameStateId) {
+        try {
+            PreparedStatement st = db.prepareStatement("""
+                SELECT int_id FROM int_game_boards WHERE int_game_state_id = ?;
+            """);
+
+            st.setInt(1, gameStateId);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt("int_id");
+            }
+
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

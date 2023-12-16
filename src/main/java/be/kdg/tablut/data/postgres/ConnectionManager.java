@@ -37,7 +37,7 @@ public class ConnectionManager {
                  INT_white_username varchar(255),
                  INT_black_username varchar(255),
                  INT_turn varchar(255) not null,
-                 INT_started_At time not null
+                 INT_started_At timestamp not null
             );
             """
         );
