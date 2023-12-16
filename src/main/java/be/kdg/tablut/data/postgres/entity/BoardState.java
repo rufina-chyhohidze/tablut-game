@@ -1,6 +1,10 @@
 package be.kdg.tablut.data.postgres.entity;
 
+import be.kdg.tablut.domain.Constants;
 import be.kdg.tablut.domain.board.Board;
+import be.kdg.tablut.domain.board.BoardFactory;
+import be.kdg.tablut.domain.board.BoardPosition;
+import be.kdg.tablut.domain.figure.Figure;
 
 public class BoardState {
 
@@ -19,7 +23,12 @@ public class BoardState {
     }
 
     public Board toBoard() {
-        // TODO: implement me
-        return null;
+        Figure[][] slots = new Figure[Constants.gridSize][Constants.gridSize];
+
+        for (BoardFigure figure: figures) {
+            slots[figure.getRowNumber()][figure.getColNumber()] = figure.toFigure();
+        }
+
+        return BoardFactory.createBoard(slots);
     }
 }

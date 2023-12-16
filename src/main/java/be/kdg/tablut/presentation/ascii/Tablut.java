@@ -1,8 +1,11 @@
 package be.kdg.tablut.presentation.ascii;
 
 import be.kdg.tablut.data.postgres.ConnectionManager;
+import be.kdg.tablut.di.RepositoryProvider;
 import be.kdg.tablut.domain.board.BoardPosition;
 import be.kdg.tablut.domain.game.Game;
+import be.kdg.tablut.domain.game.factory.GameFactory;
+import be.kdg.tablut.domain.game.repository.IGameStateRepository;
 import be.kdg.tablut.domain.player.Player;
 import be.kdg.tablut.presentation.ascii.input.AuthorizationManager;
 import be.kdg.tablut.presentation.ascii.input.CommandInputManager;
@@ -15,6 +18,7 @@ public class Tablut {
 
     private Game game;
     private final LeaderboardService leaderboardService;
+    private final IGameStateRepository gameStateRepository;
 
     public Tablut() {
         try{
@@ -24,8 +28,11 @@ public class Tablut {
         }
         Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
         Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
-        game = new Game(playerWhite, playerBlack);
+
+        game = GameFactory.newGame(playerWhite, playerBlack);
+
         leaderboardService = new LeaderboardService();
+        gameStateRepository = RepositoryProvider.provideGameStateRepository();
     }
 
     public void start() {
@@ -96,6 +103,8 @@ public class Tablut {
         System.out.println("Saving Game Result...");
         leaderboardService.handleGameOver(game);
 
+        gameStateRepository.dropGameState(game);
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {}
@@ -131,6 +140,7 @@ public class Tablut {
 
             try{
                 game.makeMove(currentPosition, targetPosition);
+                gameStateRepository.saveGameState(game);
                 return;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -139,8 +149,9 @@ public class Tablut {
     }
 
     private void reset() {
+        gameStateRepository.dropGameState(game);
         Player playerWhite = AuthorizationManager.authorizeWhitePlayer();
         Player playerBlack = AuthorizationManager.authorizeBlackPlayer();
-        this.game = new Game(playerWhite, playerBlack);
+        this.game = GameFactory.newGame(playerWhite, playerBlack);
     }
 }

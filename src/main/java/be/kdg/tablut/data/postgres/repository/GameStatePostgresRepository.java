@@ -1,16 +1,15 @@
 package be.kdg.tablut.data.postgres.repository;
 
 import be.kdg.tablut.data.postgres.ConnectionManager;
+import be.kdg.tablut.data.postgres.entity.BoardState;
 import be.kdg.tablut.data.postgres.mapper.GameStateMapper;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.game.GameState;
 import be.kdg.tablut.domain.game.repository.IGameStateRepository;
 import be.kdg.tablut.domain.player.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.text.html.Option;
+import java.sql.*;
 import java.util.Optional;
 
 public class GameStatePostgresRepository  implements IGameStateRepository {
@@ -23,10 +22,48 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         this.boardStateRepository = new BoardStatePostgresRepository(db);
     }
 
-
     @Override
     public Optional<GameState> getGameStateByPlayers(Player playerWhite, Player playerBlack) {
-        return Optional.empty();
+        try {
+            PreparedStatement st = db.prepareStatement("""
+                SELECT 
+                    int_id,
+                    int_started_at,
+                    int_turn
+                FROM int_game_states 
+                WHERE 
+                    int_white_username = ? AND
+                    int_black_username = ? 
+            ;
+            """);
+
+            st.setString(1, GameStateMapper.getWhitePlayerStoreValue(playerWhite));
+            st.setString(2, GameStateMapper.getBlackPlayerStoreValue(playerBlack));
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                int gameStateId = rs.getInt("int_id");
+                Time startedAt = rs.getTime("int_started_at");
+                String turn = rs.getString("int_turn");
+
+                BoardState boardState = boardStateRepository.getBoardState(gameStateId);
+
+                return GameStateMapper.getGameState(
+                        playerWhite,
+                        playerBlack,
+                        boardState,
+                        turn,
+                        startedAt
+                );
+            }
+
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -76,6 +113,15 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(3, GameStateMapper.getWhitePlayerStoreValue(game));
 
             st.executeUpdate();
+
+            Optional<Integer> gameStateId = getGameStateId(game);
+            if (gameStateId.isEmpty()) {
+                System.out.println("no game state found. Skipping...");
+                return;
+            }
+
+            boardStateRepository.refreshBoardState(game, gameStateId.get());
+
             db.commit();
 
         } catch (SQLException e) {
@@ -100,6 +146,15 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setTime(4, GameStateMapper.getStartedAtValueToStore(game));
 
             st.executeUpdate();
+
+            Optional<Integer> gameStateId = getGameStateId(game);
+            if (gameStateId.isEmpty()) {
+                System.out.println("no game state found. Skipping...");
+                return;
+            }
+
+            boardStateRepository.refreshBoardState(game, gameStateId.get());
+
             db.commit();
 
         } catch (SQLException e) {
@@ -119,15 +174,16 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
 
             ResultSet rs = st.executeQuery();
 
-            if (!rs.first()) {
-                return Optional.empty();
+            while (rs.next()) {
+                return Optional.of(rs.getInt("int_id"));
             }
 
-            return Optional.of(rs.getInt("int_id"));
+            return Optional.empty();
 
         } catch (SQLException e) {
             e.printStackTrace();
             return Optional.empty();
         }
     }
+
 }

@@ -47,7 +47,7 @@ public class ConnectionManager {
                 INT_id SERIAL PRIMARY KEY,
                 INT_game_state_id int not null
                     constraint fk_game_boards_game_state_id
-                    references INT_game_states
+                    references INT_game_states on delete cascade
             );"""
         );
 

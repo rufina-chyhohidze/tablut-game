@@ -30,7 +30,7 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
         String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, player.getUsername());
-            preparedStatement.setDouble(2, ScoreManager.getPlayerWonScore());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerWonScore(game));
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             preparedStatement.executeUpdate();
@@ -47,7 +47,7 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
         String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, player.getUsername());
-            preparedStatement.setDouble(2, ScoreManager.getPlayerLostScore());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerLostScore(game));
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             preparedStatement.executeUpdate();

@@ -11,10 +11,13 @@ import java.util.Optional;
 public class GameFactory {
     public static Game newGame(Player playerWhite, Player playerBlack) {
         IGameStateRepository repository = RepositoryProvider.provideGameStateRepository();
+        Game defaultGame =  new Game(playerWhite, playerBlack);
+
+        if (repository == null) {
+            return defaultGame;
+        }
 
         Optional<GameState> currentState = repository.getGameStateByPlayers(playerWhite, playerBlack);
-
-        Game defaultGame =  new Game(playerWhite, playerBlack);
 
         if (currentState.isEmpty()) {
             return defaultGame;

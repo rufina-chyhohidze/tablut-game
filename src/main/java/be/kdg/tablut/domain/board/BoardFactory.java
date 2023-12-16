@@ -71,4 +71,7 @@ public class BoardFactory {
         return new Board(slots);
     }
 
+    public static Board createBoard(Figure[][] slots) {
+        return new Board(slots);
+    }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class BoardStatePostgresRepository {
     private Connection db;
-    public void setDb(Connection db) {
+    private void setDb(Connection db) {
         this.db = db;
     }
 
