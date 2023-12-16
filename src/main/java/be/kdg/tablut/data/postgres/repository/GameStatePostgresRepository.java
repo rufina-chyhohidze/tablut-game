@@ -9,15 +9,18 @@ import be.kdg.tablut.domain.player.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
 public class GameStatePostgresRepository  implements IGameStateRepository {
 
     private final Connection db;
+    private final BoardStatePostgresRepository boardStateRepository;
 
     public GameStatePostgresRepository() throws Exception{
         this.db = ConnectionManager.getDBConnection();
+        this.boardStateRepository = new BoardStatePostgresRepository(db);
     }
 
 
@@ -104,4 +107,27 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         }
     }
 
+    private Optional<Integer> getGameStateId(Game game) {
+        try {
+            PreparedStatement st = db.prepareStatement("""
+                SELECT int_id FROM int_game_states
+                WHERE int_white_username = ? AND int_black_username = ?;
+            """);
+
+            st.setString(1, GameStateMapper.getWhitePlayerStoreValue(game));
+            st.setString(2,  GameStateMapper.getBlackPlayerStoreValue(game));
+
+            ResultSet rs = st.executeQuery();
+
+            if (!rs.first()) {
+                return Optional.empty();
+            }
+
+            return Optional.of(rs.getInt("int_id"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
 }
