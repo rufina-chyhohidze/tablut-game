@@ -2,10 +2,9 @@ package be.kdg.tablut.data.postgres.entity;
 
 public class BoardFigure {
 
-    private int rowNumber;
-    private int colNumber;
-
-    private String figure;
+    private final int rowNumber;
+    private final int colNumber;
+    private final String figure;
 
     public BoardFigure(int rowNumber, int colNumber, String figure) {
         this.rowNumber = rowNumber;

@@ -56,7 +56,7 @@ public class ConnectionManager {
             CREATE TABLE IF NOT EXISTS INT_board_figures (
                 INT_board_id INT NOT NULL
                     constraint fk_board_figure_board_id
-                    references INT_game_boards,
+                    references INT_game_boards on delete cascade,
                 INT_board_row INT NOT NULL,
                 INT_board_col INT NOT NULL,
                 INT_figure varchar(10) NOT NULL,
