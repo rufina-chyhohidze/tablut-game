@@ -40,11 +40,13 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(1, GameStateMapper.getWhitePlayerStoreValue(playerWhite));
             st.setString(2, GameStateMapper.getBlackPlayerStoreValue(playerBlack));
 
+            System.out.println(st.toString());
+
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 int gameStateId = rs.getInt("int_id");
-                Time startedAt = rs.getTime("int_started_at");
+                Timestamp startedAt = rs.getTimestamp("int_started_at");
                 String turn = rs.getString("int_turn");
 
                 BoardState boardState = boardStateRepository.getBoardState(gameStateId);
@@ -143,7 +145,7 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(2, GameStateMapper.getBlackPlayerStoreValue(game));
             st.setString(3, GameStateMapper.getTurnValueToStore(game));
 
-            st.setTime(4, GameStateMapper.getStartedAtValueToStore(game));
+            st.setTimestamp(4, GameStateMapper.getStartedAtValueToStore(game));
 
             st.executeUpdate();
 
@@ -152,6 +154,8 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
                 System.out.println("no game state found. Skipping...");
                 return;
             }
+
+            System.out.println(gameStateId.get());
 
             boardStateRepository.refreshBoardState(game, gameStateId.get());
 

@@ -1,11 +1,16 @@
 package be.kdg.tablut.data.postgres.mapper;
 
 import be.kdg.tablut.data.postgres.entity.BoardState;
+import be.kdg.tablut.domain.board.Board;
 import be.kdg.tablut.domain.game.Game;
 import be.kdg.tablut.domain.game.GameState;
+import be.kdg.tablut.domain.game.MoveTurn;
 import be.kdg.tablut.domain.player.Player;
 
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 public class GameStateMapper {
@@ -16,11 +21,28 @@ public class GameStateMapper {
          Player playerBlack,
          BoardState boardState,
          String turn,
-         Time startedAt
+         Timestamp startedAt
 
     ) {
-        // TODO: implement me
-        return Optional.empty();
+        MoveTurn moveTurn;
+        if (turn.equals(MoveTurn.WHITE.toString())) {
+            moveTurn = MoveTurn.WHITE;
+        } else {
+            moveTurn = MoveTurn.BLACK;
+        }
+
+        Board board = boardState.toBoard();
+        LocalDateTime gameTime = startedAt.toLocalDateTime();
+
+        return Optional.of(
+            new GameState(
+                playerWhite,
+                playerBlack,
+                board,
+                moveTurn,
+                gameTime
+            )
+        );
     };
 
     public static String getWhitePlayerStoreValue(Game game) {
@@ -39,8 +61,8 @@ public class GameStateMapper {
         return game.getPlayerBlack().getUsername();
     }
 
-    public static Time getStartedAtValueToStore(Game game) {
-        return Time.valueOf(game.getStartedAt().toLocalTime());
+    public static Timestamp getStartedAtValueToStore(Game game) {
+        return Timestamp.valueOf(game.getStartedAt());
     }
 
     public static String getTurnValueToStore(Game game) {

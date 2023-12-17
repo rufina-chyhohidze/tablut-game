@@ -20,6 +20,7 @@ public class GameFactory {
         Optional<GameState> currentState = repository.getGameStateByPlayers(playerWhite, playerBlack);
 
         if (currentState.isEmpty()) {
+            System.out.println("No state found. Default Game Launching...");
             return defaultGame;
         }
 
