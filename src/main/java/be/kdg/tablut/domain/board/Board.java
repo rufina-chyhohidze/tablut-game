@@ -197,7 +197,7 @@ public class Board {
         Figure figureToCheckAttack = slots[position.row][position.col];
         Figure neighbor2 = slots[horizontalNeighbors.get(1).row][horizontalNeighbors.get(1).col];
 
-        if (neighbor1 == null || neighbor2 == null) {
+        if (neighbor1 == null || neighbor2 == null || figureToCheckAttack == null) {
             return false;
         }
 
@@ -219,7 +219,7 @@ public class Board {
         Figure figureToCheckAttack = slots[position.row][position.col];
         Figure neighbor2 = slots[verticalNeighbors.get(1).row][verticalNeighbors.get(1).col];
 
-        if (neighbor1 == null || neighbor2 == null) {
+        if (neighbor1 == null || neighbor2 == null || figureToCheckAttack == null) {
             return false;
         }
 

@@ -91,6 +91,10 @@ public class Game {
     public boolean isBlackWin() {
         BoardPosition kingPosition = board.GetKingPosition();
 
+        if (kingPosition == null) {
+            return true;
+        }
+
         ArrayList<BoardPosition> positionNeighbors = Board.getPositionNeighbors(kingPosition);
 
         for (BoardPosition position: positionNeighbors) {
