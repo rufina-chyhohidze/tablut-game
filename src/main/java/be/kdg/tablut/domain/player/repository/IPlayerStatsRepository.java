@@ -11,5 +11,5 @@ public interface IPlayerStatsRepository {
 
     PlayerLeaderboardStats[] getPlayerLeaderboardStatus(String username);
 
-    PlayerLeaderboardStats[] getOverallLeaderboard();
+    //PlayerLeaderboardStats[] getOverallLeaderboard();
 }
