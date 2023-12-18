@@ -35,7 +35,7 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
         String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, player.getUsername());
-            preparedStatement.setDouble(2, ScoreManager.getPlayerWonScore());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerWonScore(game));
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             preparedStatement.executeUpdate();
@@ -52,7 +52,7 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
         String insertQuery = "INSERT INTO INT_player_scores (INT_player_name, INT_score, INT_game_date) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setString(1, player.getUsername());
-            preparedStatement.setDouble(2, ScoreManager.getPlayerLostScore());
+            preparedStatement.setDouble(2, ScoreManager.getPlayerLostScore(game));
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             preparedStatement.executeUpdate();
@@ -83,11 +83,11 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
                 Timestamp gameDate = resultSet.getTimestamp("INT_game_date");
 
                 // Создайте объект PlayerLeaderboardStats и добавьте его в список
-                PlayerLeaderboardStats leaderboardStats = new PlayerLeaderboardStats();
+                PlayerLeaderboardStats leaderboardStats = new PlayerLeaderboardStats(playerName, score, gameDate.toLocalDateTime());
                 leaderboardStatsList.add(leaderboardStats);
 
 
-                System.out.printf("Player: %-15s, Score: %-5.2f, Game Date: %s%n", playerName, score, gameDate.toLocalDateTime().format(formatter));
+                System.out.printf("Player: %-15s| Score: %-5.2f| Game Date: %s%n", playerName, score, gameDate.toLocalDateTime().format(formatter));
             }
 
         } catch (SQLException e) {
@@ -97,11 +97,6 @@ public class PlayerStatsPostgresRepository implements IPlayerStatsRepository {
 
         // Преобразуйте список в массив и верните его
         return leaderboardStatsList.toArray(new PlayerLeaderboardStats[0]);
-    }
-
-    @Override
-    public PlayerLeaderboardStats[] getOverallLeaderboard() {
-        return new PlayerLeaderboardStats[0];
     }
 
 }
