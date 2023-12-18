@@ -7,8 +7,7 @@ public class LeaderBoardSearchManager {
         System.out.print("-".repeat(60) + "\n" +
                 "| Enter the name of a user to see them on the leaderboard! | \n" +
                 "-".repeat(60) + "\n");
-        String user = sc.nextLine();
-        return "";
+        return sc.nextLine();
     }
 
 }
