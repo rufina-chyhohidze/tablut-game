@@ -29,4 +29,9 @@ public class AsciiConstants {
         LEADERBOARD,
     }
 
+    public enum EndGameCommand {
+        RESTART,
+        QUIT,
+    }
+
 }

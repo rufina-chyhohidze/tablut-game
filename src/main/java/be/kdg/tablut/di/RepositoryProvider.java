@@ -1,10 +1,16 @@
 package be.kdg.tablut.di;
 
 import be.kdg.tablut.data.postgres.repository.PlayerStatsPostgresRepository;
+import be.kdg.tablut.domain.game.repository.IGameStateRepository;
 import be.kdg.tablut.domain.player.repository.IPlayerStatsRepository;
 
 public class RepositoryProvider {
     public static IPlayerStatsRepository providePlayerStatsRepository(){
         return new PlayerStatsPostgresRepository();
     }
+
+    public static IGameStateRepository provideGameStateRepository() {
+        return null;
+    }
+
 }
