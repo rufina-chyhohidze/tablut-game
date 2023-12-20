@@ -8,6 +8,7 @@ import be.kdg.tablut.domain.player.Player;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Game {
 
@@ -108,6 +109,29 @@ public class Game {
         }
 
         return true;
+    }
+
+    public Optional<Player> getPlayerWon() {
+        if (!isGameOver()) {
+            return Optional.empty();
+        }
+
+        if (isBlackWin()) {
+            return Optional.of(getPlayerBlack());
+        }
+        return Optional.of(getPlayerWhite());
+    }
+
+    public Optional<Player> getPlayerLost() {
+        if (!isGameOver()) {
+            return Optional.empty();
+        }
+
+        if (isBlackWin()) {
+            return Optional.of(getPlayerWhite());
+        }
+
+        return Optional.of(getPlayerBlack());
     }
 
     private void switchTurn() {

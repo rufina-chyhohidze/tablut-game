@@ -12,14 +12,14 @@ public class GameState {
         Player playerBlack,
         Board board,
         MoveTurn turn,
-        LocalDateTime startedAt
+        int secondsPlayed
 
     ) {
         this.setPlayerWhite(playerWhite);
         this.setPlayerBlack(playerBlack);
         this.setBoard(board);
         this.setTurn(turn);
-        this.setStartedAt(startedAt);
+        this.setSecondsPlayed(secondsPlayed);
     }
 
     private Player playerWhite;
@@ -28,7 +28,7 @@ public class GameState {
 
     private MoveTurn turn;
 
-    private LocalDateTime startedAt;
+    private int secondsPlayed;
 
     public Player getPlayerBlack() {
         return playerBlack;
@@ -62,11 +62,11 @@ public class GameState {
         this.turn = turn;
     }
 
-    public LocalDateTime getStartedAt() {
-        return startedAt;
+    public int getSecondsPlayed() {
+        return secondsPlayed;
     }
 
-    public void setStartedAt(LocalDateTime startedAt) {
-        this.startedAt = startedAt;
+    private void setSecondsPlayed(int secondsPlayed) {
+        this.secondsPlayed = secondsPlayed;
     }
 }

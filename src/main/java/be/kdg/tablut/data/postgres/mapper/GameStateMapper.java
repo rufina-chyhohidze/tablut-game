@@ -7,10 +7,8 @@ import be.kdg.tablut.domain.game.GameState;
 import be.kdg.tablut.domain.game.MoveTurn;
 import be.kdg.tablut.domain.player.Player;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 public class GameStateMapper {
@@ -21,7 +19,7 @@ public class GameStateMapper {
          Player playerBlack,
          BoardState boardState,
          String turn,
-         Timestamp startedAt
+         int secondsPlayed
 
     ) {
         MoveTurn moveTurn;
@@ -32,7 +30,6 @@ public class GameStateMapper {
         }
 
         Board board = boardState.toBoard();
-        LocalDateTime gameTime = startedAt.toLocalDateTime();
 
         return Optional.of(
             new GameState(
@@ -40,7 +37,7 @@ public class GameStateMapper {
                 playerBlack,
                 board,
                 moveTurn,
-                gameTime
+                secondsPlayed
             )
         );
     };
@@ -61,12 +58,12 @@ public class GameStateMapper {
         return game.getPlayerBlack().getUsername();
     }
 
-    public static Timestamp getStartedAtValueToStore(Game game) {
-        return Timestamp.valueOf(game.getStartedAt());
-    }
-
     public static String getTurnValueToStore(Game game) {
         return game.getMoveTurn().toString();
+    }
+
+    public static long getSecondsPlayed(Game game) {
+        return Math.abs(Duration.between(LocalDateTime.now(), game.getStartedAt()).toSeconds());
     }
 
 }

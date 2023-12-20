@@ -25,7 +25,6 @@ public class GameFactory {
         }
 
         defaultGame.setBoard(currentState.get().getBoard());
-        defaultGame.setStartedAt(currentState.get().getStartedAt());
         defaultGame.setMoveTurn(currentState.get().getTurn());
 
         return defaultGame;
