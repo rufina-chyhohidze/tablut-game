@@ -7,12 +7,8 @@ import be.kdg.tablut.domain.game.GameState;
 import be.kdg.tablut.domain.game.MoveTurn;
 import be.kdg.tablut.domain.player.Player;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.chrono.Chronology;
-import java.util.Objects;
 import java.util.Optional;
 
 public class GameStateMapper {
@@ -60,10 +56,6 @@ public class GameStateMapper {
 
     public static String getBlackPlayerStoreValue(Game game) {
         return game.getPlayerBlack().getUsername();
-    }
-
-    public static Timestamp getStartedAtValueToStore(Game game) {
-        return Timestamp.valueOf(game.getStartedAt());
     }
 
     public static String getTurnValueToStore(Game game) {
