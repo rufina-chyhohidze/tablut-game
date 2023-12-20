@@ -98,6 +98,25 @@ public class Board {
         updateBoardCheckAttacks();
     }
 
+    public int getFiguresCountByColor(boolean isWhite) {
+        int count = 0;
+
+        for (int row = 0; row < Constants.gridSize; row++) {
+            for (Figure figure : slots[row]) {
+                if (figure == null) {
+                    continue;
+                }
+
+                if (figure.isWhite == isWhite) {
+                    count++;
+                }
+
+            }
+        }
+
+        return count;
+    }
+
     private void removeFigure(BoardPosition position) {
         slots[position.row][position.col] = null;
     }
@@ -229,4 +248,5 @@ public class Board {
                 (neighbor1.isWhite != figureToCheckAttack.isWhite)
         );
     }
+
 }

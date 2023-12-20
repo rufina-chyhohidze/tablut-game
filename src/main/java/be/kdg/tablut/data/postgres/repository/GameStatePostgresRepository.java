@@ -28,7 +28,7 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             PreparedStatement st = db.prepareStatement("""
                 SELECT 
                     int_id,
-                    int_started_at,
+                    int_seconds_played,
                     int_turn
                 FROM int_game_states 
                 WHERE 
@@ -40,13 +40,12 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(1, GameStateMapper.getWhitePlayerStoreValue(playerWhite));
             st.setString(2, GameStateMapper.getBlackPlayerStoreValue(playerBlack));
 
-            System.out.println(st.toString());
-
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 int gameStateId = rs.getInt("int_id");
-                Timestamp startedAt = rs.getTimestamp("int_started_at");
+                int secondsPlayed = rs.getInt("int_seconds_played");
+
                 String turn = rs.getString("int_turn");
 
                 BoardState boardState = boardStateRepository.getBoardState(gameStateId);
@@ -56,7 +55,7 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
                         playerBlack,
                         boardState,
                         turn,
-                        startedAt
+                        secondsPlayed
                 );
             }
 
@@ -106,13 +105,16 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             PreparedStatement st = db.prepareStatement("""
                     UPDATE int_game_states 
                     SET
-                        INT_turn = ?
+                        INT_turn = ?,
+                        int_seconds_played = int_seconds_played + ?
                     WHERE INT_black_username = ? AND INT_white_username = ?;
             """);
 
             st.setString(1, GameStateMapper.getTurnValueToStore(game));
-            st.setString(2, GameStateMapper.getBlackPlayerStoreValue(game));
-            st.setString(3, GameStateMapper.getWhitePlayerStoreValue(game));
+            st.setLong(2, GameStateMapper.getSecondsPlayed(game));
+            st.setString(3, GameStateMapper.getBlackPlayerStoreValue(game));
+            st.setString(4, GameStateMapper.getWhitePlayerStoreValue(game));
+
 
             st.executeUpdate();
 
@@ -135,7 +137,7 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
         try {
             PreparedStatement st = db.prepareStatement("""
                     INSERT INTO int_game_states 
-                        (int_white_username, int_black_username, int_turn, int_started_at) 
+                        (int_white_username, int_black_username, int_turn, int_seconds_played) 
                     VALUES (
                         ?, ?, ?, ?
                     );
@@ -144,14 +146,12 @@ public class GameStatePostgresRepository  implements IGameStateRepository {
             st.setString(1, GameStateMapper.getWhitePlayerStoreValue(game));
             st.setString(2, GameStateMapper.getBlackPlayerStoreValue(game));
             st.setString(3, GameStateMapper.getTurnValueToStore(game));
-
-            st.setTimestamp(4, GameStateMapper.getStartedAtValueToStore(game));
+            st.setLong(4, GameStateMapper.getSecondsPlayed(game));
 
             st.executeUpdate();
 
             Optional<Integer> gameStateId = getGameStateId(game);
             if (gameStateId.isEmpty()) {
-                System.out.println("no game state found. Skipping...");
                 return;
             }
 
