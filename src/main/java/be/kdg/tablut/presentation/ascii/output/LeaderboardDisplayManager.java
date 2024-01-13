@@ -14,7 +14,7 @@ public class LeaderboardDisplayManager {
         System.out.println("|USERNAME" + " ".repeat(18) + "|SCORE" + " ".repeat(21) + "|TIME" + "\n"
                 + "-".repeat(86));
         for (PlayerLeaderboardStats playerStat : leaderboardStats) {
-            System.out.printf("|%-25s|%-25s|%-30s|\n", playerStat.getPlayerName(),playerStat.getGameDate(), playerStat.getGameScore()  + "\n" +
+            System.out.printf("|%-25s|%-25s|%-30s|\n", playerStat.getPlayerName(), playerStat.getGameScore(), playerStat.getGameDate()  + "\n" +
                     "-".repeat(86));
         }
     }

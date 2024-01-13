@@ -100,6 +100,9 @@ public class Tablut {
     }
 
     private void gameOver() {
+
+        WinnerDisplayManager.printGameWinner(game);
+
         System.out.println("Saving Game Result...");
         leaderboardService.handleGameOver(game);
 

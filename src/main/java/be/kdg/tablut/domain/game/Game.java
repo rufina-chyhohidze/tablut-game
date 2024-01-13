@@ -22,7 +22,7 @@ public class Game {
         // if you want to see the end-game screens
         // Use This line instead
 //        this.board = BoardFactory.getWhiteWonGrid();
-        this.board = BoardFactory.getDefaultBoard();
+        this.board = BoardFactory.provideGameBoard(playerWhite, playerBlack);
         this.moveTurn = MoveTurn.WHITE;
         this.startedAt = LocalDateTime.now();
         this.playerWhite = playerWhite;
@@ -93,6 +93,7 @@ public class Game {
         BoardPosition kingPosition = board.GetKingPosition();
 
         if (kingPosition == null) {
+            System.out.println("debug king not found");
             return true;
         }
 
