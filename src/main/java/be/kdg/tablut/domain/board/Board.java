@@ -136,12 +136,15 @@ public class Board {
 
         // Row
         if (currentPosition.row == targetPosition.row) {
+            int columnLeft = Math.max(currentPosition.col, targetPosition.col);
+            int columnRight = Math.max(currentPosition.col, targetPosition.col);
+
             for (
-                    int col = Math.min(currentPosition.col, targetPosition.col);
-                    col < Math.max(currentPosition.col, targetPosition.col);
-                    col++
+                    int columnBetween = columnLeft;
+                    columnBetween < columnRight;
+                    columnBetween++
             ){
-                positionsBetween.add(new BoardPosition(currentPosition.row, col));
+                positionsBetween.add(new BoardPosition(currentPosition.row, columnBetween));
             }
             return positionsBetween;
         }

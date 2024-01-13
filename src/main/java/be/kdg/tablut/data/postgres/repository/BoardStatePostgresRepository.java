@@ -62,7 +62,6 @@ public class BoardStatePostgresRepository {
     }
 
     public void refreshBoardState(Game game, int gameStateId) {
-        System.out.printf("In refreshBoardState gameStateId = %s\n", gameStateId);
         dropBoardState(gameStateId);
         createNewBoardState(gameStateId);
         saveNewBoardState(game, gameStateId);
@@ -97,7 +96,6 @@ public class BoardStatePostgresRepository {
     }
 
     private void createNewBoardState(int gameStateId) {
-        System.out.printf("In createNewBoardState gameStateId = %s\n", gameStateId);
         try{
             PreparedStatement st = db.prepareStatement("""
                 INSERT INTO int_game_boards (int_game_state_id) VALUES (?);
