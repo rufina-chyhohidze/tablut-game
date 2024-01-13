@@ -5,7 +5,7 @@ import be.kdg.tablut.domain.board.BoardPosition;
 
 import java.util.ArrayList;
 
-public  abstract class Figure {
+public abstract class Figure {
     protected FigureType type;
     public boolean isWhite;
 
@@ -36,5 +36,4 @@ public  abstract class Figure {
 
         return possibleMoves;
     }
-
 }
